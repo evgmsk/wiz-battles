@@ -1,0 +1,14 @@
+@import "../../../Scss/_constants";
+
+.main-menu-item {
+  border: none;
+  background: none;
+  font: 3rem/1  'Amaranth', 'Helvetica', sans-serif;
+  text-transform: uppercase;
+  color: $menu-main;
+  border-bottom: solid 4px transparent;
+  &:hover {
+    cursor: pointer;
+    border-bottom: solid 4px $menu-main;
+  }
+}

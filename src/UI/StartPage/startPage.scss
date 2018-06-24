@@ -1,0 +1,8 @@
+@import "../../Scss/constants";
+
+.start-page-wrapper {
+  background: url('#{$imgPath}/Game_bg.jpg') top center no-repeat;
+  background-size: cover;
+  width: auto;
+  height: 100%;
+}
