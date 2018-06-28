@@ -152,10 +152,10 @@ const battle = (state = {}, action) => {
 
 const game = (state = {}, action) => {
     switch (action.type) {
-        case (AT.SET_DEMO):
+        case (AT.RESET_HERO):
             return {
                 ...state,
-                demo: action.demo,
+                resetHero: action.resetHero,
             };
         case (AT.SET_PLAYER_SPELL):
             return {
@@ -176,6 +176,16 @@ const game = (state = {}, action) => {
             return {
                 ...state,
                 battle: battle(state.battle, action),
+            };
+        case (AT.SET_MUSIC_VOLUME):
+            return {
+                ...state,
+                musicVolume: action.musicVolume,
+            };
+        case (AT.SET_SOUNDS_VOLUME):
+            return {
+                ...state,
+                soundsVolume: action.soundsVolume,
             };
         case (AT.SET_OPPONENT_EXPERIENCE):
             return {

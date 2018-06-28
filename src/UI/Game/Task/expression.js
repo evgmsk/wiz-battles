@@ -15,25 +15,26 @@ class Expression extends React.Component {
         this.onClick = this.onClick.bind(this);
     }
     componentDidMount() {
-        onSound('', Langs.en);
+        // onSound('', Langs.en);
     }
     onClick(e) {
         e.stopPropagation();
         const { text } = this.props;
         let { speechRate } = this.state;
-        onSound(text, Langs.en, speechRate);
+        onSound(text, Langs.en, speechRate, this.props.soundsVolume);
         speechRate = speechRate === 1 ? 0.5 : 1;
         this.setState({ speechRate });
     }
     render() {
-        const { showAnswer, sound, text, possibleAnswers } = this.props;
+        const { showAnswer, sound, text, possibleAnswers, difficulty } = this.props;
+        const taskText = sound && difficulty === 'normal' ? '*****' : text;
         return (
             <div className="task-expression">
                 <p>{
                     showAnswer ? possibleAnswers.map((x, i) => {
                         const innerText = i === possibleAnswers.length - 1 ? x : `${x},`;
                         return <span className="possible-answers" key={i}>{innerText} </span>;
-                    }) : text}
+                    }) : taskText}
                 </p>
                 {sound
                     ? <button

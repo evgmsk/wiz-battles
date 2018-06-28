@@ -2,7 +2,7 @@
  * project WizBattle
  */
 import { connect } from 'react-redux';
-import MainMenu from '../UI/MainMenu/mainMenu';
+import MainMenu from '../UI/StartPage/MainMenu/mainMenu';
 import { closeStatePage, goToGame } from '../Controllers/Actions/menuActions';
 
 const MenuContainer = connect(

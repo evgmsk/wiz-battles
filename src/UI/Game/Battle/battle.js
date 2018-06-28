@@ -2,9 +2,9 @@
  * project WizBattle
  */
 import React from 'react';
-// import Konva from 'konva';
 import { Layer, Stage, Image } from 'react-konva';
 import _ from 'lodash';
+import BGBattle from '../../../images/scenes/battle_scene_0.jpg';
 import { resolveAttack, levelsGap, setOpponentPosition, setOpponentImage } from '../../../GameFunctions/battleFunctions';
 import PlayerBar from './PlayerBar/playerBar';
 import Sprite from '../ShapeClasses/spriteClass';
@@ -12,15 +12,17 @@ import EffectClass from '../ShapeClasses/effectClass';
 import Task from '../Task/task';
 import { TaskGenerators, Heroes, Effects, Salutation } from '../../../Consts/constants';
 import SpellSelector from './SpellMenu/selectSpell';
-import './battle.scss';
+import Spinner from '../../Spinner/spinnerUI';
 import ShapeClass from '../ShapeClasses/shapeClass';
+import BattleMusic from '../../../sounds/didier_julia-melodiya-iz-mul-tfil-ma-priklyucheniya-papirusa.mp3';
+import onMusicEnd from '../../../HelperFunctions/onMusicEnd';
+import './battle.scss';
 
 const TGA = Object.values(TaskGenerators);
 const Length = TGA.length;
 
 class Battle extends React.Component {
     constructor(props) {
-        // console.log(props);
         super(props);
         this.time = [0, 0];
         this.attackResult = null;
@@ -40,11 +42,12 @@ class Battle extends React.Component {
                 player,
                 opponent,
             },
+            heroAnimation: 'idle',
+            showSpinner: true,
             showSpellMenu: false,
             stageProps: { width, height, initialWidth, initialHeight, scaleX: 1, scaleY: 1 },
             spellShapes: [],
         };
-        // console.log(props, this.state);
         this.canvasResize = this.canvasResize.bind(this);
         this.onSelectSpell = this.onSelectSpell.bind(this);
         this.onResolveTask = this.onResolveTask.bind(this);
@@ -52,16 +55,19 @@ class Battle extends React.Component {
         this.resolveOpponentMove = this.resolveOpponentMove.bind(this);
     }
     componentDidMount() {
+        this.setMusic();
         window.addEventListener('resize', this.canvasResize);
         this.setInitialSize();
         this.mountScene();
-        setTimeout(() => this.resolvePlayerMove(), 2000);
     }
     componentDidUpdate(prevProps) {
-        console.log('new', this.props, 'prev', prevProps);
+        this.Music.volume = this.props.musicVolume;
+        if (this.props.battle.task && !prevProps.battle.task)
+            this.Music.pause();
+        else if (!this.props.battle.task && prevProps.battle.task)
+            this.Music.play();
         const { playerMove } = this.props.battle;
         if (playerMove !== prevProps.battle.playerMove) {
-            this.attackResult = null;
             if (playerMove)
                 setTimeout(() => this.resolvePlayerMove(), 2000);
             else
@@ -70,6 +76,8 @@ class Battle extends React.Component {
     }
     componentWillUnmount() {
         window.removeEventListener('resize', this.canvasResize);
+        this.Music.pause();
+        this.Music.removeEventListener('ended', onMusicEnd);
     }
     canvasResize(e) {
         e.cancelBubble = true;
@@ -90,11 +98,18 @@ class Battle extends React.Component {
     }
     mountScene() {
         const image = new window.Image();
-        image.src = this.props.battle.scene;
+        image.src = this.props.battle.scene || BGBattle;
         image.onload = () => {
-            this.setState({ image });
+            this.setState({ image, showSpinner: false });
+            this.resolvePlayerMove();
             this.scene.current.moveToBottom();
         };
+    }
+    setMusic() {
+        this.Music = new Audio(BattleMusic);
+        this.Music.volume = this.props.musicVolume;
+        this.Music.addEventListener('ended', onMusicEnd, false);
+        this.Music.play();
     }
     resolvePlayerMove() {
         this.setState({ showSpellMenu: true });
@@ -131,6 +146,7 @@ class Battle extends React.Component {
         const { setPlayerExperience, setPlayerHealth } = this.props;
         const { setPlayerMove, battle, setPlayerLevel } = this.props;
         const { initial } = this.state;
+        const gap = levelsGap(battle.player.level);
         const result = this.attackResult;
         if (barName === 'right' && battle.player.health < initial.player.health) {
             let health = battle.player.health + result.restoration;
@@ -148,7 +164,8 @@ class Battle extends React.Component {
             else
                 setPlayerExperience(result.experience);
         } else if (barName === 'left' && expBar) {
-            if ((result.levelUp && parseInt(target.getAttribute('value'), 10) === result.experience)
+            const targetExp = Math.round((result.experience / gap) * 100);
+            if ((result.levelUp && parseInt(target.getAttribute('value'), 10) === targetExp)
                 || !result.levelUp) {
                 if (result.health)
                     setPlayerMove(false);
@@ -176,21 +193,23 @@ class Battle extends React.Component {
         }
     }
     onPlayerMoveExpBarAnimation(target) {
-        const { setPlayerExperience, setPlayerHealth, setPlayerLevel, setPlayerMove } = this.props;
+        const { setPlayerExperience, setPlayerHealth, battle } = this.props;
+        const { setPlayerLevel, setPlayerMove } = this.props;
         const { initial } = this.state;
         const result = this.attackResult;
-        if ((!result.levelUp)
-            || (result.levelUp && parseInt(target.getAttribute('value'), 10) === result.experience))
+        const targetExp = Math.round((result.experience / levelsGap(battle.player.level)) * 100);
+        if (!result.levelUp || (result.levelUp && parseInt(target.getAttribute('value'), 10) === targetExp)) {
             if (result.health > 0)
                 setPlayerMove(false);
             else
                 this.battleWin();
-        else if (result.levelUp && target.getAttribute('value') === '100') {
+        } else if (result.levelUp && target.getAttribute('value') === '100') {
             setPlayerLevel();
             setPlayerHealth(initial.player.health);
             setPlayerExperience(0);
-        } else if (result.levelUp && target.getAttribute('value') === '0')
+        } else if (result.levelUp && target.getAttribute('value') === '0') {
             setPlayerExperience(result.experience);
+        }
     }
     onSelectSpell(spell) {
         this.props.setPlayerSpell(spell);
@@ -198,6 +217,10 @@ class Battle extends React.Component {
         this.newTask();
     }
     battleWin() {
+        const { setBattlesWin, setMonstersDefeated, battle } = this.props;
+        if (!battle.pvp)
+            setMonstersDefeated();
+        setBattlesWin();
         this.startEffect(Salutation.effect, 15);
     }
     battleLost() {
@@ -232,7 +255,7 @@ class Battle extends React.Component {
             this.startEffect(effect);
             }, time);
     }
-    startEffect(effect, num = 100) {
+    startEffect(effect, num = 50) {
         const { spellShapes } = this.state;
         const { battle } = this.props;
         const { props } = this.hero.current;
@@ -293,7 +316,7 @@ class Battle extends React.Component {
     }
     newTask() {
         const ind = Math.floor(Math.random() * Length);
-        const newTask = TGA[ind]('easy');
+        const newTask = TGA[ind](this.props.battle.difficulty);
         this.props.setTask(newTask);
     }
     drawEffect(spellShapes) {
@@ -328,13 +351,14 @@ class Battle extends React.Component {
         }, []);
     }
     darwPlayer(player, heroAnimation) {
-        let heroImage = player.image;
+        let heroImage = Heroes[player.image];
         if (heroImage && Array.isArray(heroImage))
             return this.drawSetImages(heroImage);
         else if (!heroImage) {
             heroImage = { ...Heroes.Anton };
-            heroImage.x = window.innerWidth / 8;
         }
+        heroImage.x = 50;
+        heroImage.y = window.innerHeight / 2;
         heroImage.animation = heroAnimation || heroImage.animation;
         return [<Sprite ref={this.hero} {...heroImage} name="hero" key={0} />];
     }
@@ -370,9 +394,10 @@ class Battle extends React.Component {
     }
     render() {
         const { width, height } = this.state.stageProps;
-        const { player, opponent, playerMove, task } = this.props.battle;
-        const { image, spellShapes, heroAnimation, showSpellMenu } = this.state;
+        const { player, opponent, playerMove, task, difficulty } = this.props.battle;
+        const { image, spellShapes, heroAnimation, showSpellMenu, showSpinner } = this.state;
         const layer = this.layer;
+        const { soundsVolume } = this.props;
         const onTransitionEnd = this.onAnimationEnd;
         const Effect = this.drawEffect(spellShapes, layer);
         const leftBarProps = this.leftBar(player, onTransitionEnd);
@@ -380,9 +405,13 @@ class Battle extends React.Component {
         const heroImage = this.darwPlayer(player, heroAnimation);
         const opponentImage = this.drawOpponent(opponent, opponent.animation);
         const taskCondition = playerMove && task;
+        const taskProps = { ...task, difficulty, soundsVolume };
         return (
             <div className="battle-wrapper" ref={this.container} onTransitionEnd={this.onAnimationEnd}>
-                {taskCondition ? <Task {...task} onResolveTask={this.onResolveTask} /> : <div className="display-none" />}
+                {showSpinner ? <Spinner /> : <div className="display-none" />}
+                {taskCondition
+                    ? <Task {...taskProps} onResolveTask={this.onResolveTask} />
+                    : <div className="display-none" />}
                 <Stage ref={this.stage} width={width} height={height} >
                     <Layer ref={this.layer}>
                         {Effect}
@@ -391,7 +420,8 @@ class Battle extends React.Component {
                         <Image image={image} width={width} height={height} alt="" ref={this.scene} />
                     </Layer>
                 </Stage>
-                {showSpellMenu && playerMove ? <SpellSelector onSelectSpell={this.onSelectSpell} />
+                {showSpellMenu && playerMove
+                    ? <SpellSelector onSelectSpell={this.onSelectSpell} volume={soundsVolume} />
                     : <span className="display-none" /> }
                 <PlayerBar {...leftBarProps} />
                 <PlayerBar {...rightBarProps} />

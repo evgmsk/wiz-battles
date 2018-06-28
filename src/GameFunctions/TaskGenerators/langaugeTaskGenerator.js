@@ -33,7 +33,6 @@ export const englishTranslateGenerator = (level = 'easy') => {
     const answersToSelect = wordsSet.map(x => Vocabulary[words[x]][0]).sort();
     return { expression, possibleAnswers, answersToSelect, message, sound: true };
 };
-console.log(englishTranslateGenerator());
 
 export const russianWordsGenerator = () => {
 

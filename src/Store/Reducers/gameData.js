@@ -28,35 +28,8 @@ export const savedShapes = (state = [], action) => {
     return state;
 };
 
-export const sprites = (state = [], action) => {
-    if (action.type === AT.SAVE_SPRITE)
-        return ([
-            ...state,
-            { name: action.name, nodeType: action.nodeType, image: action.image },
-        ]);
-    return state;
-};
-
-export const players = (state = [], action) => {
-    if (action.type === AT.SAVE_PLAYER)
-        return ([
-            ...state,
-            { name: action.name, nodeType: action.nodeType, image: action.image },
-        ]);
-    return state;
-};
-
 export const monsters = (state = [], action) => {
     if (action.type === AT.SAVE_MONSTER)
-        return ([
-            ...state,
-            { name: action.name, nodeType: action.nodeType, image: action.image },
-        ]);
-    return state;
-};
-
-export const effects = (state = [], action) => {
-    if (action.type === AT.SAVE_EFFECT)
         return ([
             ...state,
             { name: action.name, nodeType: action.nodeType, image: action.image },
@@ -71,26 +44,6 @@ export const gameData = (state = {}, action) => {
                 ...state,
                 monsters: monsters(state.monsters || [], action),
             };
-        case AT.SAVE_PLAYER:
-            return {
-                ...state,
-                players: players(state.players || [], action),
-            };
-        case AT.SAVE_SPRITE:
-            return {
-                ...state,
-                sprites: sprites(state.sprites || [], action),
-            };
-        case AT.SAVE_EFFECT:
-            return {
-                ...state,
-                effects: effects(state.effects || [], action),
-            };
-        case (AT.FETCH_DATA):
-            return ({
-                ...state,
-                gameData: action.gameData,
-            });
         default:
             return state;
     }

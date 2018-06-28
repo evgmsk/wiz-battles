@@ -8,11 +8,8 @@ import ControlsPanel from './controlsPanel';
 import ShapeClass from '../Game/ShapeClasses/shapeClass';
 import { oddIndexes, evenIndexes } from '../../HelperFunctions/indexFiters';
 import idGen from '../../HelperFunctions/idGen';
-import { Shapes, AnimationTypes } from '../../Consts/constants';
+import { Shapes } from '../../Consts/constants';
 import GroupClass from '../Game/ShapeClasses/groupClass';
-import { fetchOnClose } from '../../HelperFunctions/fetches';
-import EffectClass from '../Game/ShapeClasses/effectClass';
-import { iceStorm } from '../../GameFunctions/effects';
 import './drawBox.scss';
 
 class DrawBox extends React.Component {
@@ -40,13 +37,8 @@ class DrawBox extends React.Component {
             interval: 0,
             categories: [
                 { key: 'шейп', value: 'shapes', action: props.saveShape },
-                { key: 'монстр', value: 'monsters', action: props.saveMonster },
-                { key: 'игрок', value: 'players', action: props.savePlayer },
-                { key: 'спрайт', value: 'sprites', action: props.saveSprite },
-                { key: 'эффект', value: 'effects', action: props.saveEffect },
             ],
         };
-        // console.log(props)
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
         this.onMouseMove = this.onMouseMove.bind(this);
@@ -358,8 +350,6 @@ class DrawBox extends React.Component {
         } else
             data = { name, nodeType: 'Shape', image: shapes };
         action(data);
-        if (action.name === 'saveShape')
-            fetchOnClose(data);
     }
     selectAction(e) {
         e.stopPropagation();
@@ -415,7 +405,6 @@ class DrawBox extends React.Component {
     render() {
         const { shapes, categories, drawing, animate, draggable } = this.state;
         const { shapeProps, stageProps } = this.state;
-        console.log(this.state.selectedShape);
         const savedShapes = this.props.savedShapes;
         const [stage, layer] = [this.stage, this.layer];
         const panelProps = {
@@ -460,6 +449,7 @@ class DrawBox extends React.Component {
         }, []);
         return (
             <section className="draw-box">
+                <h2>Создай своего монстра</h2>
                 <div className="draw-stage-wrapper" ref={this.container}>
                     <Stage className="draw-stage" ref={stage} {...StageProps}>
                         <Layer ref={layer}>

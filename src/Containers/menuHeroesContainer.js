@@ -10,19 +10,21 @@ import {
 import { saveName, saveImage } from '../Actions/ActionCreators/heroActions';
 
 const HeroesHallContainer = connect(
-    null,
+    state => ({
+        nickName: state.hero.nickName,
+    }),
     dispatch => ({
-        setTimeLimit(demo) {
-            dispatch(setTimeLimit(demo));
+        setTimeLimit(time) {
+            dispatch(setTimeLimit(time));
         },
-        setHeroImage(demo) {
-            dispatch(saveImage(demo));
+        setHeroImage(image) {
+            dispatch(saveImage(image));
         },
         setDifficulty(demo) {
             dispatch(setDifficulty(demo));
         },
-        setHeroName(demo) {
-            dispatch(saveName(demo));
+        setHeroName(name) {
+            dispatch(saveName(name));
         },
     }),
 )(HeroesHall);

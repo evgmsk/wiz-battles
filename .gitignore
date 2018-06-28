@@ -1,0 +1,7 @@
+.idea/jsLibraryMappings.xml
+*.xml
+.idea/wiz-battles.iml
+*.cmd
+node_modules/
+Data/shapes.json
+

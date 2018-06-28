@@ -1,11 +1,11 @@
 /**
- * project WizBattle
+ * project WizBattle.
  */
 import { Layer, Stage } from 'react-konva';
 import React from 'react';
 import { Heroes } from '../../../Consts/constants';
 import SpriteClass from '../ShapeClasses/spriteClass';
-import './selectHero.scss';
+import './hero.scss';
 
 class Hero extends React.Component {
     constructor(props) {
@@ -14,22 +14,28 @@ class Hero extends React.Component {
         this.layer = React.createRef();
         this.container = React.createRef();
         this.hero = React.createRef();
-        const [width, height] = [window.innerWidth * 0.2, window.innerHeight * 0.2];
+        const [width, height] = [100, 100];
         const [initialWidth, initialHeight] = [...[width, height]];
         this.state = {
+            animation: 'idle',
             stageProps: { width, height, initialWidth, initialHeight, scaleX: 1, scaleY: 1 },
         };
-        console.log(props);
-        this.onCLick = this.onCLick.bind(this);
+        this.canvasResize = this.canvasResize.bind(this);
     }
     componentDidMount() {
         window.addEventListener('resize', this.canvasResize);
         this.setInitialSize();
-    }
-    componentDidUpdate() {
+        this.animateHero();
     }
     componentWillUnmount() {
         window.removeEventListener('resize', this.canvasResize);
+    }
+    componentDidUpdate(prevProps) {
+        const { className, animation } = this.props;
+        if ((className !== prevProps.className)
+            || animation !== prevProps.animation) {
+            this.animateHero();
+        }
     }
     canvasResize(e) {
         e.cancelBubble = true;
@@ -48,31 +54,40 @@ class Hero extends React.Component {
         stageProps = { ...stageProps, width, height, initialWidth, initialHeight };
         this.setState({ stageProps });
     }
-    loadImg(img, name) {
-        const image = new window.Image();
-        image.src = img;
-        image.onload = () => ({ image, name });
+    prepareHero() {
+        const hero = Heroes[this.props.heroName];
+        const { width, height } = this.state.stageProps;
+        const animation = this.props.animation || this.state.animation;
+        hero.animation = animation;
+        hero.x = 0;
+        hero.y = 0;
+        if (animation === 'playAll')
+            hero.frameRate = 8;
+        hero.scale = { x: width / 300, y: height / 300 };
+        return hero;
     }
-    mountHeroes() {
-        const heroes = Object.values(Heroes).map(h => this.loadImg(h.image));
-        Promise.all(heroes).then(images => {
-            const firstHero = { image: images[0].image, name: images[0].name };
-            const secondHero = images[1];
-            const thirdHero = images[2];
-            this.setState({ firstHero, secondHero, thirdHero });
-        });
+    animateHero() {
+        const { animation, className } = this.props;
+        if (animation)
+            this.setState({ animation });
+        else if (className === 'hero-wrapper')
+            this.setState({ animation: 'idle' });
+        else
+            this.setState({ animation: 'playAll' });
     }
+
     render() {
         const { stageProps } = this.state;
-        const { image, ...props } = this.props.hero;
+        const hero = this.prepareHero();
+        const { heroName, onLoad, ...containerProps } = this.props;
         return (
-            <div className="hero-image" >
-                <Stage {...stageProps}>
-                    <Layer>
-                        <SpriteClass image={image} {...props} />
+            <a href="" ref={this.container} {...containerProps}>
+                <Stage ref={this.stage} {...stageProps}>
+                    <Layer ref={this.layer}>
+                        <SpriteClass onLoad={onLoad} ref={this.hero} {...hero} />
                     </Layer>
                 </Stage>
-            </div>
+            </a>
         );
     }
 }

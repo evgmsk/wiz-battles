@@ -1,12 +1,24 @@
+@import "../../Scss/constants";
 .draw-box {
+  background: url('#{$imgPath}/start_page_bg.jpg') top center no-repeat;
+ // background-size: cover;
+  width: 100%;
+  height: calc(100vh - 13.2rem);
   margin: 0 auto;
-
+  padding: 3rem 0 0;
+  h2 {
+    font: $font-main;
+    font-size: 4rem;
+    color: $ice;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
 }
 
 .draw-stage-wrapper {
   background: #fefefe;
   width: 90%;
-  height: calc(100vh - 300px);
+  height: calc(100vh - 400px);
   margin: 0 auto;
   border: solid 5px #64964c;
   .draw-stage {
@@ -44,9 +56,7 @@
     height: 3rem;
     margin: 0 8px;
     padding: 2px;
-    //border: solid 1px #999999;
     color: #999999;
-    //border-radius: 3px;
   }
   [type="color"] {
     width: 30px;

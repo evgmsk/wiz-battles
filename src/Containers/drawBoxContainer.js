@@ -5,12 +5,7 @@ import { connect } from 'react-redux';
 import DrawBox from '../UI/DrawBox/drawBox';
 import {
     onSaveShape,
-    onSaveMonster,
-    onSavePlayer,
-    onSaveSprite,
-    onSaveEffect,
-    onOverwriteShape,
-} from '../Actions/ActionCreators/drawActions';
+} from '../Actions/ActionCreators/gameDataActions';
 
 const DrawBoxContainer = connect(
     state => ({

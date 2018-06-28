@@ -5,7 +5,7 @@ import AppContainer from './Containers/appContainer';
 import storeFactory from './Store';
 import './reset.scss';
 import './GameFunctions/TaskGenerators/langaugeTaskGenerator';
-import { onSaveMonster } from '../src/Actions/ActionCreators/drawActions';
+import { onSaveMonster } from '../src/Actions/ActionCreators/gameDataActions';
 import Monsters from './Data/monsters.json';
 
 const store = storeFactory();
@@ -14,7 +14,7 @@ const shapes = Object.values(Monsters);
 
 if (shapes.length)
     shapes.forEach(s => store.dispatch(onSaveMonster(s)));
-console.log(store.getState());
+// console.log(store.getState());
 
 const target = document.getElementById('root');
 

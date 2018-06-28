@@ -4,18 +4,22 @@
 import { Layer, Stage, Image } from 'react-konva';
 import React from 'react';
 import BGBattle from '../../images/scenes/battle_scene_0.jpg';
-import GameBg from '../../images/game_map_0.jpg';
+import GameBg from '../../images/GameBackgrounds/game_map_0.jpg';
+import Music from '../../sounds/forest.mp3';
 import {
     definePlayer,
     defineAIOpponent,
 } from '../../GameFunctions/battleFunctions';
 import BattleContainer from '../../Containers/battleContainer';
 import HeroesHallContainer from '../../Containers/menuHeroesContainer';
+import Spinner from '../Spinner/spinnerUI';
+import HeroAchievements from './HeroAchievements/achievemants';
+import GameMenu from '../../Containers/gameMenuContainer';
+import onMusicEnd from '../../HelperFunctions/onMusicEnd';
 import './game.scss';
 
 class Game extends React.Component {
     constructor(props) {
-        console.log(props);
         super(props);
         this.stage = React.createRef();
         this.layer = React.createRef();
@@ -25,33 +29,51 @@ class Game extends React.Component {
         const [width, height] = [window.innerWidth * 0.8, window.innerHeight * 0.6];
         const [initialWidth, initialHeight] = [...[width, height]];
         this.state = {
+            showSpinner: true,
             stageProps: { width, height, initialWidth, initialHeight, scaleX: 1, scaleY: 1 },
-            showStats: false,
+            showHeroData: false,
         };
-        // console.log(props);
-        this.onCLick = this.onCLick.bind(this);
-        this.setDemo = this.setDemo.bind(this);
         this.newBattle = this.newBattle.bind(this);
         this.showStats = this.showStats.bind(this);
+        this.mountMap = this.mountMap.bind(this);
         this.canvasGameResize = this.canvasGameResize.bind(this);
+        this.startBattle = this.startBattle.bind(this);
+        this.showHeroesMenu = this.showHeroesMenu.bind(this);
     }
     componentDidMount() {
-        if (this.props.game.demo)
-            this.startBattle();
-        else {
+        const { game } = this.props;
+        if (!game.startBattle && !game.resetHero) {
             window.addEventListener('resize', this.canvasGameResize);
+            this.setMusic();
             this.setInitialSize();
             this.mountMap();
         }
     }
     componentDidUpdate(prevProps) {
         const { game } = this.props;
-        if (game.startBattle && !prevProps.game.startBattle) {
+        if (game.musicVolume !== prevProps.game.musicVolume && this.Music)
+            this.Music.volume = this.props.game.musicVolume;
+        else if (!game.resetHero && prevProps.game.resetHero) {
+            window.addEventListener('resize', this.canvasGameResize);
+            this.setInitialSize();
+            this.mountMap();
+            this.setMusic();
+        } else if (game.startBattle && !prevProps.game.startBattle) {
             window.removeEventListener('resize', this.canvasGameResize);
-            this.startBattle();
+            this.Music.removeEventListener('ended', onMusicEnd);
+            this.Music.pause();
+        } else if (!game.startBattle && prevProps.game.startBattle) {
+            window.addEventListener('resize', this.canvasGameResize);
+            this.setInitialSize();
+            this.mountMap();
+            if (this.Music)
+                this.Music.play();
+            else
+                this.setMusic();
         }
     }
     componentWillUnmount() {
+        this.Music.removeEventListener('ended', onMusicEnd);
         window.removeEventListener('resize', this.canvasGameResize);
     }
     canvasGameResize(e) {
@@ -75,33 +97,35 @@ class Game extends React.Component {
         const image = new window.Image();
         image.src = GameBg;
         image.onload = () => {
-            this.setState({ image });
+            this.setState({ image, showSpinner: false });
             this.layer.current.moveToBottom();
         };
     }
-    onCLick(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        window.location.hash = '#/home';
-        this.props.goToGame({ startGame: false });
-    }
-    setDemo() {
-        this.props.setDemo(!this.props.game.demo);
+    setMusic() {
+        this.Music = new Audio(Music);
+        this.Music.volume = this.props.game.musicVolume;
+        this.Music.addEventListener('ended', onMusicEnd, false);
+        this.Music.play();
     }
     newBattle(e) {
         e.stopPropagation();
         e.preventDefault();
         this.startBattle();
     }
-    showStats(e) {
+    showStats(e, state = true) {
         e.stopPropagation();
         e.preventDefault();
-        this.setState({ showStats: true });
+        this.setState({ showHeroData: state });
     }
-
     defineScene() {
         const scene = BGBattle;
         this.props.setScene(scene);
+    }
+    showHeroesMenu(state) {
+        if (state)
+            this.setState({ showHeroesMenu: state, showSpinner: false });
+        else
+            this.setState({ showHeroesMenu: state, showSpinner: true });
     }
     startBattle() {
         const { game, hero, gameData } = this.props;
@@ -112,19 +136,21 @@ class Game extends React.Component {
         this.defineScene();
         this.props.setOpponent(opponent);
         this.props.setPlayer(player);
+        if (!game.battle.pvp)
+            this.props.setPlayerMove(true);
         this.props.toBattle(true);
     }
     defineComponentToRender() {
-        const { stageProps, image } = this.state;
-        const { game, hero } = this.props;
+        const { stageProps, image, showHeroData, showSpinner } = this.state;
+        const { game, hero, resetHero } = this.props;
         if (game.startBattle) {
             return <BattleContainer />;
         }
-        /*
-        if (!hero.image) {
-            return <HeroesHallContainer />;
+        if (game.resetHero) {
+            return <HeroesHallContainer hero={hero} resetHero={resetHero} />;
         }
-*/
+        if (showHeroData)
+            return <HeroAchievements {...hero} onClick={e => this.showStats(e, false)} />;
         return (
             <div className="game-screen" >
                 <Stage {...stageProps} ref={this.stage}>
@@ -132,17 +158,12 @@ class Game extends React.Component {
                         <Image image={image} width={stageProps.width} height={stageProps.height} alt="" />
                     </Layer>
                 </Stage>
-                <div className="menu-back">
-                    <button onClick={this.onCLick}>Back</button>
-                    <button onClick={this.setDemo}>{game.demo ? 'Real' : 'Demo'}</button>
-                    <button onClick={this.newBattle}>Новая битва</button>
-                    <button onClick={this.showStats}>Статистика Героя</button>
-                </div>
+                { showSpinner ? <Spinner /> : <div className="display-none" />}
+                <GameMenu showStats={this.showStats} startBattle={this.startBattle} />
             </div>
         );
     }
     render() {
-        // console.log(this.props)
         const Component = this.defineComponentToRender();
         return (
             <div className="game-wrapper" ref={this.container}>

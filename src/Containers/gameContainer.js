@@ -9,15 +9,12 @@ import {
     setBattle,
     setPVP,
     setOpponent,
-    setTimeLimit,
     setPlayer,
-    setDifficulty,
-    setDemo,
+    setPlayerMove,
+    setMusicVolume,
+    setSoundsVolume,
+    resetGameHero,
 } from '../Actions/ActionCreators/gameActions';
-import {
-    saveName,
-    saveImage,
-} from '../Actions/ActionCreators/heroActions';
 import { goToGame } from '../Actions/ActionCreators/appActions';
 
 const GameContainer = connect(
@@ -25,8 +22,17 @@ const GameContainer = connect(
         ...state,
     }),
     dispatch => ({
-        setDemo(demo) {
-            dispatch(setDemo(demo));
+        setMusicVolume(volume) {
+            dispatch(setMusicVolume(volume));
+        },
+        setSoundsVolume(volume) {
+            dispatch(setSoundsVolume(volume));
+        },
+        resetHero(hero) {
+            dispatch(resetGameHero(hero));
+        },
+        setPlayerMove(move) {
+            dispatch(setPlayerMove(move));
         },
         goToGame(show) {
             dispatch(goToGame(show));
@@ -40,14 +46,8 @@ const GameContainer = connect(
         setOpponent(opponent) {
             dispatch(setOpponent(opponent));
         },
-        setDifficulty(difficulty) {
-            dispatch(setDifficulty(difficulty));
-        },
         setPlayer(player) {
             dispatch(setPlayer(player));
-        },
-        setTimeLimit(limit) {
-            dispatch(setTimeLimit(limit));
         },
         setPvp(pvp) {
             dispatch(setPVP(pvp));

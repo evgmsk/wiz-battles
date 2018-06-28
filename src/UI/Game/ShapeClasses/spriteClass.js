@@ -17,12 +17,14 @@ class SpriteClass extends React.Component {
         const image = new window.Image();
         image.src = this.props.image;
         image.onload = () => {
+            if (this.props.onLoad)
+                this.props.onLoad();
             this.setState({ image });
             this.ref.current.start();
         };
     }
-    componentDidUpdate() {
-       // console.log(this.props);
+    conponentWillUnmount() {
+        this.ref.current.stop();
     }
     render() {
         const { image, ...props } = this.props;
@@ -31,5 +33,9 @@ class SpriteClass extends React.Component {
         );
     }
 }
+
+SpriteClass.defaultProps = {
+    // onLoad: f => f,
+};
 
 export default SpriteClass;

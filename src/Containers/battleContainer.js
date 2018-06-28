@@ -14,8 +14,6 @@ import {
     toStartBattle,
     setPlayerExperience,
     setOpponentExperience,
-    setOpponentName,
-    setPlayerName,
 } from '../Actions/ActionCreators/gameActions';
 import {
     addItem,
@@ -33,6 +31,8 @@ const BattleContainer = connect(
         battle: state.game.battle,
         hero: state.hero,
         monsters: state.gameData.monsters,
+        musicVolume: state.game.musicVolume,
+        soundsVolume: state.game.soundsVolume,
     }),
     dispatch => ({
         startBattle(battle) {
@@ -43,12 +43,6 @@ const BattleContainer = connect(
         },
         setHeroName(name) {
             dispatch(saveName(name));
-        },
-        setPlayerName(name) {
-            dispatch(setPlayerName(name));
-        },
-        setOpponentName(name) {
-            dispatch(setOpponentName(name));
         },
         setOpponentExperience(experience) {
             dispatch(setOpponentExperience(experience));

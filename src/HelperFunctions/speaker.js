@@ -9,7 +9,7 @@ const onSound = (text, lang = 'ru-RU', rate = 1, volume = 1) => {
     const speak = () => {
         if (text !== '') {
             const utterThis = new SpeechSynthesisUtterance(text);
-            utterThis.voice = voices.length > 20 ? voices[voice] : voices[16];
+            utterThis.voice = voices[voice];
             utterThis.rate = rate;
             utterThis.pitch = 1;
             utterThis.volume = volume;
@@ -17,6 +17,6 @@ const onSound = (text, lang = 'ru-RU', rate = 1, volume = 1) => {
         }
     };
     speak();
-}
+};
 
 export default onSound;

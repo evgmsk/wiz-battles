@@ -1,0 +1,31 @@
+@import "../../Scss/constants";
+.about {
+  padding: 1px;
+  background: url('#{$imgPath}/start_page_bg.jpg') top center no-repeat;
+  background-size: cover;
+  height: 100%;
+  font: $font-main;
+  color: $ice;
+  .game-screenshots {
+    margin: 1rem auto 4rem;
+    figcaption {
+      text-align: center;
+    }
+  }
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  h1 {
+    text-align: center;
+    margin: 4rem;
+    font-size: 4rem;
+  }
+  h2 {
+    text-align: center;
+    font-size: 3rem;
+  }
+
+}

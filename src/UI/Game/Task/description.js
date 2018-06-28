@@ -9,27 +9,6 @@ class Description extends React.Component {
         super(props);
         this.onClick = this.onClick.bind(this);
     }
-    componentDidMount() {
-        const { text } = this.props;
-        const message = text.split('.')[0];
-        this.onSound(message);
-    }
-    onSound(text, rate = 1, volume = 1) {
-        const synth = window.speechSynthesis;
-        const voices = synth.getVoices();
-        const voice = voices.filter(x => x.lang === 'ru-RU')[0];
-        const speak = () => {
-            if (text !== '') {
-                const utterThis = new SpeechSynthesisUtterance(text);
-                utterThis.voice = voices[voice];
-                utterThis.rate = rate;
-                utterThis.pitch = 1;
-                utterThis.volume = volume;
-                synth.speak(utterThis);
-            }
-        };
-        speak();
-    }
     onClick(e) {
         e.stopPropagation();
         const { text } = this.props;
@@ -41,13 +20,8 @@ class Description extends React.Component {
         return (
             <div className="task-description-wrapper">
                 <div className="task-description">
-                    <p>{text.split('.')[0]}</p>
-                    <button
-                        className="sound-description"
-                        onClick={this.onClick}
-                    >
-                        <Speaker />
-                    </button>
+                    <p className="task-title">{text.split('.')[0]}</p>
+                    <p className="task-comment">{text.split('.')[1]}</p>
                 </div>
             </div>
         );

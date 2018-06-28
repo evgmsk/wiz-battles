@@ -27,15 +27,31 @@ import { Katya, Anton, Vasya } from './heroes';
 import { leafRising, snowStorm, fire, waterFall, salute } from '../GameFunctions/effects';
 
 export const MainRoutes = {
-    HOME: '/',
-    GAME: '/game',
-    DRAWBOX: '/draw',
-    ABOUT: '/about',
+    HOME: {
+        path: '/',
+        title: 'WB',
+    },
+    ABOUT: {
+        path: '/about',
+        title: 'Об игре',
+    },
+    DRAWBOX: {
+        path: '/draw',
+        title: 'Рисовать',
+    },
+    LOGIN: {
+        path: '/login',
+        title: 'Войти',
+    },
+    GAME: {
+        path: '/game',
+        title: 'Играть',
+    },
 };
 
 export const Heroes = {
-    Katya,
     Anton,
+    Katya,
     Vasya,
 };
 
@@ -49,7 +65,6 @@ export const ShapeTypes = [
     'Ring',
     'Arc',
     'RegularPolygon',
-    'Text',
 ];
 
 export const Shapes = {
@@ -60,7 +75,6 @@ export const Shapes = {
     Ring: 'Ring',
     Arc: 'Arc',
     RegularPolygon: 'RegularPolygon',
-    Text: 'Text',
 };
 
 export const TaskGenerators = {

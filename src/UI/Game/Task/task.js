@@ -53,7 +53,7 @@ class Task extends React.Component {
             return;
         const { possibleAnswers } = this.props;
         const solution = possibleAnswers.filter(x => x.toString() === answer.toString())[0];
-        if (solution && !solutionDone) {
+        if ((solution || solution === 0) && !solutionDone) {
             const damage = answersClass === 'answers-to-select shown' ? 0.9 : 1;
             this.setState({
                 solutionCorrect: true,
@@ -104,11 +104,13 @@ class Task extends React.Component {
     }
 
     render() {
-        const { answersToSelect, message, expression, sound, possibleAnswers } = this.props;
+        const { answersToSelect, message, expression, sound } = this.props;
+        const { possibleAnswers, difficulty, soundsVolume } = this.props;
         const { solutionCorrect, buttonValue, taskClass, solutionPopUpClass } = this.state;
         const { showAnswer, answersClass } = this.state;
-        const expressionProps = { showAnswer, sound, text: expression, possibleAnswers };
         const solutionPopUpMessage = solutionCorrect ? 'Верно!' : 'Ответ неверен';
+        let expressionProps = { showAnswer, sound, text: expression, possibleAnswers };
+        expressionProps = { ...expressionProps, difficulty, soundsVolume };
         return (
             <section className={taskClass}>
                 <div className="task-wrapper">

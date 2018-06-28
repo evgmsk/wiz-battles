@@ -1,5 +1,5 @@
 {
-  "name": "mygame",
+  "name": "wiz-battles",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,7 +18,7 @@
     "react",
     "react-redux",
     "konva",
-    "react-ronva"
+    "react-konva"
   ],
   "author": "evg-msk",
   "license": "ISC",

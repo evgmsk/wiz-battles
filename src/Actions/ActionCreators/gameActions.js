@@ -3,10 +3,17 @@
  */
 import AT from '../actionTypes';
 
-export const fetchData = data => {
+export const setSoundsVolume = soundsVolume => {
     return ({
-        type: AT.FETCH_DATA,
-        gameData: data,
+        type: AT.SET_SOUNDS_VOLUME,
+        soundsVolume,
+    });
+};
+
+export const setMusicVolume = musicVolume => {
+    return ({
+        type: AT.SET_MUSIC_VOLUME,
+        musicVolume,
     });
 };
 
@@ -15,6 +22,13 @@ export const setPlayerMove = playerMove => {
         type: AT.SET_PLAYER_MOVE,
         playerMove,
     });
+};
+
+export const resetGameHero = resetHero => {
+    return {
+        type: AT.RESET_HERO,
+        resetHero,
+    };
 };
 
 export const setPlayerLevel = level => {

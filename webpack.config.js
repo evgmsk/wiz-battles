@@ -1,9 +1,9 @@
-
 const paths = require('./configs/paths');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+
 const extractCss = new ExtractTextWebpackPlugin({
     filename: 'css/[name].css',
 });
@@ -13,6 +13,7 @@ const env = !process.env['NODE_ENV'];
 const plugins = [
     new HtmlWebpackPlugin({
         template: paths.template,
+        favicon: paths.favicon,
     }),
 ];
 

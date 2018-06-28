@@ -6,14 +6,13 @@ import { MainRoutes } from '../../../Consts/constants';
 import MenuItem from './menuItem';
 import './mainMenu.scss';
 
-const menu = Object.keys(MainRoutes);
-
+const menu = Object.values(MainRoutes);
 const MainMenu = () => {
     return (
         <div className="menu-wrapper">
             {
                 menu.map((x, i) => {
-                    return <MenuItem key={i} href={MainRoutes[x]} name={x} />;
+                    return <MenuItem key={i} href={x.path} name={x.title} />;
                 })
             }
         </div>

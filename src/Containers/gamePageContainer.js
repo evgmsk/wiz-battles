@@ -6,7 +6,9 @@ import GamePage from '../UI/StartPage/gamePage';
 import { goToGame } from '../Actions/ActionCreators/appActions';
 
 const GamePageContainer = connect(
-    null,
+    state => ({
+            nickName: state.hero.nickName,
+        }),
     dispatch => ({
         goToGame(input) {
             dispatch(goToGame(input));

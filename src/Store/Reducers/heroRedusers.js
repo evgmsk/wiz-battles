@@ -54,12 +54,12 @@ const hero = (state = {}, action) => {
         case (AT.SET_BATTLES_WIN):
             return {
                 ...state,
-                battleWin: action.battlesWin,
+                battlesWin: state.battlesWin + 1,
             };
         case (AT.SET_MONSTERS_DEFEATED):
             return {
                 ...state,
-                monstersDefeated: action.monstersDefeated,
+                monstersDefeated: state.monstersDefeated + 1,
             };
         case (AT.SET_TASKS_RESOLVED):
             return {

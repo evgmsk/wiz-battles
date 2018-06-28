@@ -1,84 +1,120 @@
 /**
  * project WizBattle
  */
-import { Layer, Stage, Image } from 'react-konva';
 import React from 'react';
 import { Heroes } from '../../../Consts/constants';
 import Hero from './hero';
-import './selectHero.scss';
-
+import Spinner from '../../Spinner/spinnerUI';
+import './heroesMenu.scss';
 class HeroesHall extends React.Component {
     constructor(props) {
         super(props);
-        this.stage = React.createRef();
-        this.layer = React.createRef();
         this.container = React.createRef();
-        this.firstHero = React.createRef();
-        this.secondHero = React.createRef();
-        this.thirdHero = React.createRef();
-        const [width, height] = [window.innerWidth * 0.8, window.innerHeight * 0.6];
-        const [initialWidth, initialHeight] = [...[width, height]];
+        this.difficulty = React.createRef();
+        this.heroName = React.createRef();
         this.state = {
-            firstHero: null,
-            secondHero: null,
-            thirdHero: null,
-            stageProps: { width, height, initialWidth, initialHeight, scaleX: 1, scaleY: 1 },
+            showSpinner: true,
+            chosen: 1,
+            active: 1,
+            difficulty: 'легкие',
         };
-        // console.log(props);
-       // this.onCLick = this.onCLick.bind(this);
+        this.onSelect = this.onSelect.bind(this);
+        this.onMouseOver = this.onMouseOver.bind(this);
+        this.onSave = this.onSave.bind(this);
+        this.defineDifficulty = this.defineDifficulty.bind(this);
+        this.onMouseOut = this.onMouseOut.bind(this);
     }
-    componentDidMount() {
-        this.mountHeroes();
+    onSelect(e, ind) {
+        e.stopPropagation();
+        e.preventDefault();
+        this.setState({ chosen: ind });
     }
-    componentDidUpdate() {
+    onMouseOver(e, ind) {
+        e.stopPropagation();
+        this.setState({ active: ind });
     }
-    componentWillUnmount() {
-       // window.removeEventListener('resize', this.canvasResize);
+    onMouseOut(e) {
+        e.stopPropagation();
+        this.setState({ active: this.state.chosen });
     }
-    canvasResize(e) {
-        e.cancelBubble = true;
-        const container = this.container.current;
-        const { initialWidth, initialHeight } = this.state.stageProps;
-        const [width, height] = [container.offsetWidth, container.offsetHeight];
-        const [scaleX, scaleY] = [width / initialWidth, height / initialHeight];
-        const stageProps = { width, height, initialWidth, initialHeight, scaleX, scaleY };
-        this.setState({ stageProps });
+    defineDifficulty(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const difficulty = this.state.difficulty === 'легкие' ? 'сложные' : 'легкие';
+        this.setState({ difficulty });
     }
-    setInitialSize() {
-        const container = this.container.current;
-        const [width, height] = [container.offsetWidth, container.offsetHeight];
-        const [initialWidth, initialHeight] = [...[width, height]];
-        let { stageProps } = this.state;
-        stageProps = { ...stageProps, width, height, initialWidth, initialHeight };
-        this.setState({ stageProps });
+    onSave(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const { setHeroName, setHeroImage, setDifficulty, resetHero } = this.props;
+        const { active, difficulty } = this.state;
+        const diff = difficulty === 'легкие' ? 'easy' : 'normal';
+        const heroImage = Object.keys(Heroes)[active];
+        const nickName = this.heroName.current.value || this.props.nickName;
+        if (!nickName)
+            return;
+        setHeroName(nickName);
+        setDifficulty(diff);
+        setHeroImage(heroImage);
+        resetHero(false);
     }
-    loadImg(img, props) {
-        const image = new window.Image();
-        image.src = img;
-        image.onload = () => ({ image, props });
-    }
-    mountHeroes() {
-        const heroes = Object.values(Heroes).map(hero => {
-            const { image, ...props } = hero;
-            this.loadImg(image, props);
-        });
-        console.log(heroes)
-        Promise.all(heroes).then(images => {
-            const firstHero = { image: images[0].image, props: images[0].props };
-            const secondHero = { image: images[1].image, props: images[1].props };
-            const thirdHero = { image: images[2].image, props: images[2].props };
-           this.setState({ firstHero, secondHero, thirdHero });
-        });
+    onLoadImage(num = 3) {
+        return () => {
+            if (!num)
+                this.setState({ showSpinner: false });
+            return num -= 1;
+        };
     }
     render() {
-        const { stageProps, firstHero, secondHero, thirdHero } = this.state;
+        const heroes = Object.keys(Heroes);
+        const { active, difficulty, chosen, showSpinner } = this.state;
+        const onLoad = this.onLoadImage(heroes.length - 1);
         return (
-            <div>
+            <div className="heroes-menu-wrapper" ref={this.container}>
+                {showSpinner ? <Spinner /> : <div className="display-none" />}
+                <h2>Выберите героя</h2>
                 <div className="heroes-wrapper">
-
+                    {heroes.map((hero, i) => {
+                        const activeHero = i === active || i === chosen;
+                        const className = activeHero ? 'hero-wrapper active' : 'hero-wrapper';
+                        return (
+                            <Hero
+                                className={className}
+                                heroName={hero}
+                                key={i}
+                                onMouseEnter={e => this.onMouseOver(e, i)}
+                                onMouseLeave={this.onMouseOut}
+                                onFocus={e => this.onMouseOver(e, i)}
+                                onClick={e => this.onSelect(e, i)}
+                                onLoad={onLoad}
+                            />
+                        );
+                    })}
                 </div>
+                <form className="heroes-menu-menu">
+                    <div className="hero-input-wrapper">
+                        <label htmlFor="heroName">Имя героя</label>
+                        <input
+                            type="text"
+                            id="heroName"
+                            ref={this.heroName}
+                            placeholder={this.props.nickName}
+                        />
+                    </div>
+                    <div className="hero-input-wrapper">
+                        <label htmlFor="task-diff">Задачи</label>
+                        <input
+                            type="button"
+                            ref={this.difficulty}
+                            id="task-diff"
+                            value={difficulty}
+                            onClick={this.defineDifficulty}
+                        />
+                    </div>
+                    <input type="submit" value="Сохpaнить" onClick={this.onSave} />
+                </form>
             </div>
-            );
+        );
     }
 }
 

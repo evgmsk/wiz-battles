@@ -30,28 +30,3 @@ export const onSaveMonster = (data) => {
     });
 };
 
-export const onSaveSprite = (data) => {
-    return ({
-        type: AT.SAVE_SPRITE,
-        name: data.name,
-        nodeType: data.nodeType,
-        image: data.image,
-    });
-};
-export const onSavePlayer = (data) => {
-    return ({
-        type: AT.SAVE_PLAYER,
-        name: data.name,
-        nodeType: data.nodeType,
-        image: data.image,
-    });
-};
-
-export const onSaveEffect = (data) => {
-    return ({
-        type: AT.SAVE_EFFECT,
-        name: data.name,
-        nodeType: data.nodeType,
-        image: data.image,
-    });
-};

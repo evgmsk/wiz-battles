@@ -49,16 +49,22 @@
   min-width: 200px;
   font: $font-main;
   color: $input-text-color;
-  @include flex();
+  @include flex(center, center, column);
   .sound-description {
     margin: 20px;
     background: none;
     border: none;
     cursor: pointer;
   }
-  p {
-    margin: 5px auto;
+  .task-title {
+    font: 2.6rem/1 'Calibri', 'sans-serif';
+    margin: 5px auto 20px;
     text-align: center;
+  }
+  .task-comment {
+    font: 2rem/1 'Helvetica', 'sans-serif';
+    text-align: justify;
+    max-width: 60rem;
   }
   svg {
     font-size: 40px;
@@ -79,6 +85,9 @@
     svg {
       font-size: 40px;
       color: $task-text-color;
+      &:hover {
+        color: $task-section;
+      }
     }
   }
 }
@@ -89,27 +98,25 @@
   transform: translate(-50%, -50%);
   font: 0/1 'Calibri', 'sans-serif';
   visibility: hidden;
-  padding: 1rem;
+  border-radius: 20px;
+  padding: 2rem;
   &.correct {
     visibility: visible;
     transform: translateX(0px);
-    background: $bg-popup;
-    color: #feaa38;
-    border: solid 5px #feaa38;
-    border-radius: 20px;
+    background: $life;
+    color: $ice;
+    border: solid 5px $ice;
     z-index: 101;
-    font-size: 6rem;
-    padding: 1rem;
+    font-size: 5rem;
     transition: font-size 1s;
   }
   &.fail {
     visibility: visible;
     background: $bg-popup;
-    color: #fefefe;
+    color: $ice;
     z-index: 101;
     transform: translateX(0px);
     font-size: 5rem;
-    padding: 1rem;
     transition: font-size 1s;
   }
 }
@@ -138,6 +145,7 @@
     padding: 5px 10px;
     min-height: 2rem;
     outline: none;
+
     &::placeholder {
       font: 1.8rem/1 'Helvetica', 'sans-serif';
       color: $task-text-color
@@ -146,23 +154,22 @@
       font: 2rem/1 'Amaranth', 'Helvetica', 'sans-serif';
       color: #fefefe;
       background: $task-text-color;
+      cursor: pointer;
+      &:hover,
       &:focus {
         background: $task-section;
       }
     }
   }
 }
-
 .show-radio {
   font: 2rem/1 'Amaranth', 'Helvetica', 'sans-serif';
   color: #fefefe;
   background: $task-text-color;
   margin-bottom: 20px;
   padding: 5px;
-}
-input,
-button {
-  outline: none;
+  cursor: pointer;
+  &:hover,
   &:focus {
     background: $task-section;
   }

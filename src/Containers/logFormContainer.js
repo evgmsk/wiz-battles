@@ -2,8 +2,8 @@
  * project smartWizBattle
  */
 import { connect } from 'react-redux';
-import LogForm from '../UI/StartPage/Login/logFormUI';
-import { checkInput, openForm } from '../Actions/ActionCreators/appActions';
+import LogForm from '../UI/Login/logFormUI';
+import { checkInput } from '../Actions/ActionCreators/appActions';
 import { saveName } from '../Actions/ActionCreators/heroActions';
 
 const Login = connect(
