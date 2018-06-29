@@ -62,6 +62,7 @@ const LogForm = props => {
                         ref={input => email = input}
                         placeholder={loginForm.emailValid ? 'Ваш email *' : 'Невалидный email'}
                     />
+                    <span className="invalid-email">Невалидный email</span>
                 </div>
                 <div className={loginForm.passwordValid ? 'form-fieldset' : 'form-fieldset invalid'}>
                     <label htmlFor="password">Пароль</label>
@@ -75,6 +76,10 @@ const LogForm = props => {
                             : 'Небезопасный пароль'
                         }
                     />
+                    {!loginForm.passwordValid
+                        ? <span className="invalid-password">Небезопасный пароль. Добавьте спецсимвол</span>
+                        : <span className="display-none" />
+                    }
                 </div>
                 <div className="form-fieldset">
                     <Submit value="Submit" />

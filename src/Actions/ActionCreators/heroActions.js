@@ -58,10 +58,15 @@ export const setMonstersDefeated = (monstersDefeated) => {
     };
 };
 
-export const setBattlesWin = (battlesWin) => {
+export const setBattlesWin = () => {
     return {
         type: AT.SET_BATTLES_WIN,
-        battlesWin,
+    };
+};
+
+export const setBattlesLost = () => {
+    return {
+        type: AT.SET_BATTLES_LOST,
     };
 };
 

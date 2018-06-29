@@ -37,7 +37,7 @@
 .form-fieldset {
   position: relative;
   width: 100%;
-  margin: 0 auto;
+  margin: 1rem auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -47,6 +47,14 @@
     width: 30%;
     min-width: 15rem;
     text-align: center;
+  }
+  .invalid-email,
+  .invalid-password {
+    font: 1.5rem/1 Arial, 'sans-serif';
+    color:  $error-color;
+    position: absolute;
+    bottom: -0px;
+    display: none;
   }
   input {
     background: $ice;
@@ -59,6 +67,7 @@
     border-radius: 5px;
     font-size: 1.6rem;
     cursor: default;
+    margin: 2rem auto;
   }
   [type='submit'] {
     margin: 2rem auto;
@@ -78,17 +87,31 @@
       transition: color .3s, background-color .3s;
     }
   }
-  &.invalid input{
-    border: solid 2px $error-color;
-  }
-  &.invalid input::placeholder {
-    color: $error-color;
+  &.invalid {
+    input{
+      border: solid 2px $error-color;
+    }
+    input::placeholder {
+      color: $error-color;
+    }
+    .invalid-email,
+    .invalid-password {
+      display: block;
+    }
   }
   @media (min-width: 900px) {
     margin: 5rem auto;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    &.invalid {
+      .invalid-email,
+      .invalid-password {
+        bottom: -10px;
+        left: 50%;
+        display: block;
+      }
+    }
     label {
       text-align: left;
     }

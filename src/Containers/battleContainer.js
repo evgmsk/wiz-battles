@@ -24,6 +24,7 @@ import {
     setTaskResolved,
     setTaskFailed,
     saveName,
+    setBattlesLost,
 } from '../Actions/ActionCreators/heroActions';
 
 const BattleContainer = connect(
@@ -37,6 +38,9 @@ const BattleContainer = connect(
     dispatch => ({
         startBattle(battle) {
             dispatch(toStartBattle(battle));
+        },
+        setBattlesLost() {
+            dispatch(setBattlesLost());
         },
         setPlayerExperience(experience) {
             dispatch(setPlayerExperience(experience));
@@ -59,11 +63,11 @@ const BattleContainer = connect(
         setOpponentHealth(health) {
             dispatch(setOpponentHealth(health));
         },
-        setBattlesWin(battle) {
-            dispatch(setBattlesWin(battle));
+        setBattlesWin() {
+            dispatch(setBattlesWin());
         },
-        setPlayerLevel(level) {
-            dispatch(setPlayerLevel(level));
+        setPlayerLevel() {
+            dispatch(setPlayerLevel());
         },
         setMonstersDefeated(monsters) {
             dispatch(setMonstersDefeated(monsters));
@@ -83,8 +87,8 @@ const BattleContainer = connect(
         setPlayerMove(move) {
             dispatch(setPlayerMove(move));
         },
-        setTaskResolved(task) {
-            dispatch(setTaskResolved(task));
+        setTaskResolved() {
+            dispatch(setTaskResolved());
         },
         setTaskFailed(task) {
             dispatch(setTaskFailed(task));

@@ -7,7 +7,7 @@ import './achievements.scss';
 const Achievements = props => {
     const { level, battlesWin, battlesLost, tasksResolved, tasksFailed } = props;
     const dataValue = [level, battlesWin, battlesLost, tasksResolved, tasksFailed.length];
-    const dataName = ['Уровень', 'Выйграно битв', 'Решено задач', 'Провалено задач'];
+    const dataName = ['Уровень', 'Выйграно битв', 'Проиграно битв', 'Решено задач', 'Провалено задач'];
     return (
             <div className="hero-stats-wrapper">
                 <h2>{props.nickName}</h2>

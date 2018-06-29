@@ -224,6 +224,7 @@ class Battle extends React.Component {
         this.startEffect(Salutation.effect, 15);
     }
     battleLost() {
+        this.props.setBattlesLost();
         this.endBattle();
     }
     endBattle() {
@@ -242,7 +243,7 @@ class Battle extends React.Component {
             setTaskResolved();
             this.heroAttack(battle);
         } else {
-            setTaskFailed();
+            setTaskFailed(battle.task);
             setTimeout(() => setPlayerMove(false), 2000);
         }
         setTask(null);

@@ -16,6 +16,7 @@ const initialState = {
         tasksResolved: 0,
         tasksFailed: [],
         battlesWin: 0,
+        battlesLost: 0,
         level: 1,
         experience: 0,
         achievements: {},

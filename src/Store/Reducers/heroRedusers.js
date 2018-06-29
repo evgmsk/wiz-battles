@@ -19,11 +19,6 @@ const SubjectLevel = (state = {}, action) => {
             return state;
     }
 };
-const tasksResolved = (state = 0, action) => {
-    if (AT.SET_TASKS_RESOLVED === action.type)
-        return state + 1;
-    return state;
-};
 
 const tasksFailed = (state = [], action) => {
     if (AT.SET_TASKS_FAILED === action.type)
@@ -49,12 +44,17 @@ const hero = (state = {}, action) => {
         case (AT.LEVEL_UP):
             return {
                 ...state,
-                level: state.level + 1,
+                level: parseInt(state.level, 10) + 1,
             };
         case (AT.SET_BATTLES_WIN):
             return {
                 ...state,
-                battlesWin: state.battlesWin + 1,
+                battlesWin: parseInt(state.battlesWin, 10) + 1,
+            };
+        case (AT.SET_BATTLES_LOST):
+            return {
+                ...state,
+                battlesLost: parseInt(state.battlesWin, 10) + 1,
             };
         case (AT.SET_MONSTERS_DEFEATED):
             return {
@@ -64,12 +64,12 @@ const hero = (state = {}, action) => {
         case (AT.SET_TASKS_RESOLVED):
             return {
                 ...state,
-                tasksResolved: tasksResolved(state.tasksResolved, action),
+                tasksResolved: parseInt(state.tasksResolved, 10) + 1,
             };
         case (AT.SET_TASKS_FAILED):
             return {
                 ...state,
-                tasksResolved: tasksFailed(state.tasksFailed, action),
+                tasksFailed: tasksFailed(state.tasksFailed, action),
             };
         case (AT.SET_EXPERIENCE):
             return {

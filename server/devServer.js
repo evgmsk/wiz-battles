@@ -9,7 +9,6 @@ import SC from '../configs/server-conf';
 import paths from '../configs/paths';
 import config from '../webpack.config';
 import freePort from './free-port'; // helper function to find unused port
-import data from '../Data/shapes.json';
 
 //console.log(data)
 //const shapes = JSON.parse(data);
@@ -42,18 +41,6 @@ app.use(parser.json());
 app.post('/users', (req, res) => {
     res.sendFile(paths.usersPath);
 });
-
-app.post('/saveShapes', (req, res) => {
-    const onEnd = () => {
-        res.send('saved');
-    };
-    const shape = req.body;
-    const name = shape.name;
-    data[name] = shape;
-    const shapes = JSON.stringify(data);
-    fs.writeFile(paths.dataPath, shapes, onEnd);
-});
-
 
 app.get('*', (req, res) => {
     res.sendFile(paths.template);

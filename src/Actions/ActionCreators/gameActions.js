@@ -66,13 +66,6 @@ export const setOpponentSpell = spell => {
     });
 };
 
-export const setDemo = demo => {
-    return ({
-        type: AT.SET_DEMO,
-        demo,
-    });
-};
-
 export const setBattle = battle => {
     return ({
         type: AT.SET_BATTLE,

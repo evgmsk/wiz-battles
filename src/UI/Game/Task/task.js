@@ -52,7 +52,8 @@ class Task extends React.Component {
         if (solutionDone)
             return;
         const { possibleAnswers } = this.props;
-        const solution = possibleAnswers.filter(x => x.toString() === answer.toString())[0];
+        answer = answer.toString().toLocaleLowerCase();
+        const solution = possibleAnswers.filter(x => x.toString() === answer)[0];
         if ((solution || solution === 0) && !solutionDone) {
             const damage = answersClass === 'answers-to-select shown' ? 0.9 : 1;
             this.setState({
