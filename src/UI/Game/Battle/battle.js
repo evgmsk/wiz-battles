@@ -69,7 +69,7 @@ class Battle extends React.Component {
         const { playerMove } = this.props.battle;
         if (playerMove !== prevProps.battle.playerMove) {
             if (playerMove)
-                setTimeout(() => this.resolvePlayerMove(), 2000);
+                this.resolvePlayerMove();
             else
                 setTimeout(this.resolveOpponentMove, 2000);
         }
@@ -112,7 +112,9 @@ class Battle extends React.Component {
         this.Music.play();
     }
     resolvePlayerMove() {
-        this.setState({ showSpellMenu: true });
+        setTimeout(() => {
+            this.setState({ showSpellMenu: true });
+        }, 1000);
     }
     onAnimationEnd(e, barName) {
         e.stopPropagation();
@@ -160,14 +162,14 @@ class Battle extends React.Component {
                 setPlayerExperience(result.experience);
         } else if (barName === 'left' && healthBar) {
             if (result.levelUp)
-                setPlayerExperience(levelsGap(battle.player.level));
+                setPlayerExperience(gap);
             else
                 setPlayerExperience(result.experience);
         } else if (barName === 'left' && expBar) {
             const targetExp = Math.round((result.experience / gap) * 100);
             if ((result.levelUp && parseInt(target.getAttribute('value'), 10) === targetExp)
                 || !result.levelUp) {
-                if (result.health)
+                if (result.health > 0)
                     setPlayerMove(false);
                 else
                     this.battleWin();
@@ -242,11 +244,12 @@ class Battle extends React.Component {
                 levelUp();
             setTaskResolved();
             this.heroAttack(battle);
-        } else {
+        } else if (battle.task) {
             setTaskFailed(battle.task);
             setTimeout(() => setPlayerMove(false), 2000);
         }
-        setTask(null);
+        if (battle.task)
+            setTask(null);
     }
     heroAttack(battle, time = 1200) {
        this.setState({ heroAnimation: 'attack' });
@@ -422,7 +425,10 @@ class Battle extends React.Component {
                     </Layer>
                 </Stage>
                 {showSpellMenu && playerMove
-                    ? <SpellSelector onSelectSpell={this.onSelectSpell} volume={soundsVolume} />
+                    ? <SpellSelector
+                        onSelectSpell={this.onSelectSpell}
+                        volume={soundsVolume}
+                    />
                     : <span className="display-none" /> }
                 <PlayerBar {...leftBarProps} />
                 <PlayerBar {...rightBarProps} />

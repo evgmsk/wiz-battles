@@ -15,7 +15,7 @@ export const calcBaseHealth = level => {
     return 90 + (parseInt(level, 10) * 10);
 };
 
-export const calcBaseDamage = (level, items = []) => {
+export const calcDamage = (level, items = []) => {
     const bonusDamage = items.filter(i => i.bonusDamage)
         .reduce((acc, i) => acc += i.bonusDamage, 0);
     return 30 + (level * 2) + bonusDamage;
@@ -39,7 +39,7 @@ export const definePlayer = hero => {
     const name = hero.nickName ? hero.nickName : 'Антоша';
     const image = hero.image;
     const level = hero.level;
-    const baseDamage = calcBaseDamage(hero.level);
+    const baseDamage = calcDamage(hero.level);
     const experience = hero.experience;
     return { health, spell, image, name, level, baseDamage, experience };
 };
@@ -65,10 +65,9 @@ export const defineAIOpponent = (hero, monsters) => {
     const name = MonstersNames[monster];
     const health = calcPlayerHealth(hero.level, []);
     const spell = null;
-    const image = monster; //setOpponentImage(monsters, monster);
+    const image = monster;
     const level = calcRandomOpponentLevel(hero.level);
-    const baseDamage = calcBaseDamage(hero.level);
-    // console.log(image)
+    const baseDamage = calcDamage(level);
     return { health, name, spell, image, level, baseDamage };
 };
 
@@ -77,8 +76,9 @@ export const resolveLifeAttack = (solution, battle) => {
         ? [battle.player, battle.opponent]
         : [battle.opponent, battle.player];
     const { experience, level, baseDamage } = attacker;
-    const damage = Math.round(baseDamage * solution);
-    const actualDamage = Math.round(Math.min(damage * 0.5, defender.health));
+    const realDamage = battle.difficulty === 'easy' ? baseDamage : baseDamage * 1.5;
+    const damage = Math.round(realDamage * solution * 0.5);
+    const actualDamage = Math.min(damage, defender.health);
     const health = actualDamage > defender.health ? 0 : defender.health - actualDamage;
     if (battle.pvp || battle.playerMove) {
         const { levelUp, newExperience } = calcCurrentExperience(actualDamage, experience, level);
@@ -95,7 +95,9 @@ export const resolveAttack = (solution, battle) => {
         ? [battle.player, battle.opponent]
         : [battle.opponent, battle.player];
     const { experience, level, baseDamage } = attacker;
-    const damage = Math.round(baseDamage * solution);
+    const realDamage = battle.difficulty !== 'easy' && battle.playerMove
+        ? baseDamage * 1.5 : baseDamage;
+    const damage = Math.round(realDamage * solution);
     const actualDamage = Math.min(damage, defender.health);
     const health = damage > defender.health ? 0 : defender.health - damage;
     if (battle.pvp || battle.playerMove) {

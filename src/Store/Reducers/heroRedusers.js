@@ -54,7 +54,7 @@ const hero = (state = {}, action) => {
         case (AT.SET_BATTLES_LOST):
             return {
                 ...state,
-                battlesLost: parseInt(state.battlesWin, 10) + 1,
+                battlesLost: parseInt(state.battlesLost, 10) + 1,
             };
         case (AT.SET_MONSTERS_DEFEATED):
             return {

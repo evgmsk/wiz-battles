@@ -70,7 +70,7 @@ class Task extends React.Component {
                 solutionPopUpClass: 'solution-effect fail',
                 buttonValue: 'Посмотреть ответ',
             });
-            setTimeout(() => this.setState({ solutionPopUpClass: 'solution-effect' }), 2000);
+            setTimeout(() => this.setState({ solutionPopUpClass: 'solution-effect' }), 1200);
         }
     }
     onAnswer(answer) {
@@ -83,7 +83,7 @@ class Task extends React.Component {
             if (buttonValue === 'Посмотреть ответ')
                 this.setState({ buttonValue: 'Вернуться в битву', showAnswer: true });
             else {
-                this.props.onResolveTask(0);
+                setTimeout(() => this.props.onResolveTask(0), 1000);
             }
         }
     }
