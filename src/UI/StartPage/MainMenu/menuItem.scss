@@ -8,8 +8,15 @@
   text-transform: uppercase;
   color: $menu-main;
   border-bottom: solid 4px transparent;
-  &:hover {
-    cursor: pointer;
+  &:hover,
+  &:focus,
+  &.menu-item-active {
     border-bottom: solid 4px $menu-main;
+  }
+  &:hover{
+    cursor: pointer;
+  }
+  &.menu-item-active {
+    cursor: none;
   }
 }

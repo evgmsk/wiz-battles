@@ -19,15 +19,7 @@ const saver = store => next => action => {
     }
     return result;
 };
-const logger = store => next => action => {
-    console.groupCollapsed('dispatching', action.type);
-    console.log('prev state', store.getState());
-    console.log('action', action);
-    const result = next(action);
-    console.log('next state', store.getState());
-    console.groupEnd();
-    return result;
-};
+
 const initialData = initialState;
 if (localStorage['redux-store']) {
     const Hero = JSON.parse(localStorage['redux-store']).hero;
@@ -37,10 +29,12 @@ if (localStorage['redux-store']) {
     if (savedShapes)
         initialData.savedShapes = SavedShapes;
 }
+const reduxToolsExt = window.__REDUX_DEVTOOLS_EXTENSION__;
+
 const storeFactory = (data = initialData) =>
     applyMiddleware(saver)(createStore)(
         combineReducers({ hero, game, gameData, app, savedShapes }),
-            data,
+         data, reduxToolsExt && reduxToolsExt(),
     );
 
 export default storeFactory;

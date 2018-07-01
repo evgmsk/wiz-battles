@@ -7,7 +7,13 @@ import { Link } from 'react-router-dom';
 import './menuItem.scss';
 
 const MenuItem = (props) => {
-    return <HashLink to={props.href} className="main-menu-item">{props.name}</HashLink>;
+    return (
+        <HashLink
+            to={props.href}
+            className={props.className}
+        >
+            {props.name}
+        </HashLink>);
 };
 
 export default MenuItem;

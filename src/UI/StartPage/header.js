@@ -6,11 +6,8 @@ import Menu from './MainMenu/mainMenu';
 import './header.scss';
 
 class Header extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     componentDidMount() {
-        this.props.onLoad()
+        this.props.onLoad();
     }
     render() {
         return (
@@ -19,6 +16,6 @@ class Header extends React.Component {
             </header>
         );
     }
-};
+}
 
 export default Header;

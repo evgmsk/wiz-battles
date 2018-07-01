@@ -1,7 +1,7 @@
 @import "../../Scss/_constants";
 
 .home-section{
-  background: url('#{$imgPath}/start_page_bg.jpg') top center no-repeat;
+  background: url('#{$imgPath}/start_page_bg.jpg') no-repeat;
   height: calc(100vh - 100px);
   color: $ice;
   img {

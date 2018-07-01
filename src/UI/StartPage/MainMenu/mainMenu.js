@@ -8,11 +8,18 @@ import './mainMenu.scss';
 
 const menu = Object.values(MainRoutes);
 const MainMenu = () => {
+    const hash = window.location.hash.slice(1);
     return (
         <div className="menu-wrapper">
             {
                 menu.map((x, i) => {
-                    return <MenuItem key={i} href={x.path} name={x.title} />;
+                    const className = x.path !== hash ? 'main-menu-item' : 'main-menu-item menu-item-active';
+                    return <MenuItem
+                        key={i}
+                        href={x.path}
+                        name={x.title}
+                        className={className}
+                    />;
                 })
             }
         </div>

@@ -1,8 +1,7 @@
 @import "../../Scss/constants";
 .about {
   padding: 1px;
-  background: url('#{$imgPath}/start_page_bg.jpg') top center no-repeat;
-  background-size: cover;
+  background-image: url('#{$imgPath}/bg_pattern.jpg');
   height: 100%;
   font: $font-main;
   color: $ice;

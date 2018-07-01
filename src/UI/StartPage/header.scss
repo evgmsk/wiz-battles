@@ -1,8 +1,6 @@
 @import "../../Scss/constants";
 
 .header {
-  background: url('#{$imgPath}/header_bg.jpg') top center no-repeat;
-  background-size: cover;
+  background: url('#{$imgPath}/header_bg.jpg') no-repeat;
   height: 100px;
-  // border-bottom: solid 2px $menu-main;
 }
