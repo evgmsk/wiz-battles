@@ -2,7 +2,6 @@
  * project WizBattle
  */
 import React from 'react';
-import Speaker from 'react-icons/lib/ti/volume';
 
 class Description extends React.Component {
     constructor(props) {

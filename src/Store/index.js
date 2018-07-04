@@ -2,6 +2,7 @@
  * project smartWizBattle
  */
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+
 import game from './Reducers/gameReducers';
 import hero from './Reducers/heroRedusers';
 import { gameData, savedShapes } from './Reducers/gameData';
@@ -13,13 +14,13 @@ const saver = store => next => action => {
     const result = next(action);
     if (action.type === AT.START_BATTLE
         || action.type === AT.SAVE_SHAPE
-        || action.type === AT.SET_HERO_NAME) {
+        || action.type === AT.SET_HERO_NAME
+        || action.type === AT.SAVE_HERO) {
         const state = store.getState();
         localStorage['redux-store'] = JSON.stringify({ hero: state.hero, savedShapes: state.savedShapes });
     }
     return result;
 };
-
 const initialData = initialState;
 if (localStorage['redux-store']) {
     const Hero = JSON.parse(localStorage['redux-store']).hero;

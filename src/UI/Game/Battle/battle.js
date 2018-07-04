@@ -5,7 +5,7 @@ import React from 'react';
 import { Layer, Stage, Image } from 'react-konva';
 import _ from 'lodash';
 import BGBattle from '../../../images/scenes/battle_scene_0.jpg';
-import { resolveAttack, levelsGap, setOpponentPosition, setOpponentImage } from '../../../GameFunctions/battleFunctions';
+import { resolveAttack, levelsGap, setOpponentImage } from '../../../GameFunctions/battleFunctions';
 import PlayerBar from './PlayerBar/playerBar';
 import Sprite from '../ShapeClasses/spriteClass';
 import EffectClass from '../ShapeClasses/effectClass';

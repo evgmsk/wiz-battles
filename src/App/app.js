@@ -12,7 +12,7 @@ const App = props => {
             {
                 props.app.startGame
                     ? <GameContainer />
-                    : <StartPage startGame={props.app.startGame} />
+                    : <StartPage {...props} />
             }
         </div>
     );

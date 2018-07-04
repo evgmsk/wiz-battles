@@ -10,6 +10,13 @@ export const saveImage = (image) => {
     };
 };
 
+export const saveHero = hero => {
+    return {
+        type: AT.SAVE_HERO,
+        hero,
+    };
+};
+
 export const saveName = (nickName) => {
     return {
         type: AT.SET_HERO_NAME,

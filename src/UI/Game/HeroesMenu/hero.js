@@ -81,13 +81,13 @@ class Hero extends React.Component {
         const hero = this.prepareHero();
         const { heroName, onLoad, ...containerProps } = this.props;
         return (
-            <a href="" ref={this.container} {...containerProps}>
+            <button ref={this.container} {...containerProps}>
                 <Stage ref={this.stage} {...stageProps}>
                     <Layer ref={this.layer}>
                         <SpriteClass onLoad={onLoad} ref={this.hero} {...hero} />
                     </Layer>
                 </Stage>
-            </a>
+            </button>
         );
     }
 }

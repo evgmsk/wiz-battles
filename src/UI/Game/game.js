@@ -66,10 +66,7 @@ class Game extends React.Component {
             window.addEventListener('resize', this.canvasGameResize);
             this.setInitialSize();
             this.mountMap();
-            if (this.Music)
-                this.Music.play();
-            else
-                this.setMusic();
+            this.setMusic();
         }
     }
     componentWillUnmount() {

@@ -64,7 +64,7 @@ const expressionTaskGenerator = (level) => {
     const checkExpression = (expr) => {
         expr = makeExpression(expr).join(' ');
         const answer = eval(expr);
-        if (Number.isNaN(answer) || answer % 1) {
+        if (Number.isNaN(answer) || answer % 1 || answer === Infinity) {
             return checkExpression([firstNumber]);
         }
         return [expr, answer];

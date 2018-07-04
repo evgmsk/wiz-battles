@@ -30,7 +30,7 @@ class SpellSelector extends React.Component {
         const spellCase = data === 'life' ? 'Эта магия исцеляет' : 'Эта магия наносит урон';
         const sound = `Вы выбрали магию ${Spells[data]}. ${spellCase}`;
         this.setState({ spell: data });
-        onSound(sound, "ru-RU", 1, volume);
+        onSound(sound, 'ru-RU', 1, volume);
     }
     onConfirm(e) {
         e.stopPropagation();

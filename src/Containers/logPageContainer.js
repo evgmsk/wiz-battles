@@ -1,17 +1,17 @@
 /**
- * project WizBattle
+ * project wiz-battles
  */
 import { connect } from 'react-redux';
-import Home from '../UI/Home/homePage';
+import Login from '../UI/Login/loginPage';
 import { dataLoaded } from '../Actions/ActionCreators/appActions';
 
-const HomeContainer = connect(
+const LoginPage = connect(
     null,
     dispatch => ({
         dataLoaded(data) {
             dispatch(dataLoaded(data));
         },
     }),
-)(Home);
+)(Login);
 
-export default HomeContainer;
+export default LoginPage;

@@ -3,11 +3,12 @@
  */
 import React from 'react';
 import { EmailValidation, PasswordValidation } from '../../HelperFunctions/inputValidation';
+import initialState from '../../Store/initialState';
 import Submit from '../Common/submit';
 import './logForm.scss';
 
 const LogForm = props => {
-    const { loginForm, onBlur = f => f, onSubmit = f => f, history } = props;
+    const { loginForm, onBlur = f => f, saveHero = f => f, history } = props;
     let email;
     let password;
     let name;
@@ -18,7 +19,14 @@ const LogForm = props => {
         onBlur({ passwordValid: PasswordValidation(password.value) });
         if (EmailValidation(email.value) && PasswordValidation(password.value) && name.value) {
             history.replace('/game');
-            onSubmit(name.value);
+            let Hero = localStorage['redux-store']
+                ? JSON.parse(localStorage['redux-store']).hero
+                : initialState.hero;
+            if (Hero.nickName !== name.value) {
+                Hero = initialState.hero;
+                Hero.nickName = name.value;
+                saveHero(Hero);
+            }
             name.value = '';
             email.value = '';
             password.value = '';

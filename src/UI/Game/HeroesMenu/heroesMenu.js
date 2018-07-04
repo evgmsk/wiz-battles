@@ -6,6 +6,7 @@ import { Heroes } from '../../../Consts/constants';
 import Hero from './hero';
 import Spinner from '../../Spinner/spinnerUI';
 import './heroesMenu.scss';
+
 class HeroesHall extends React.Component {
     constructor(props) {
         super(props);

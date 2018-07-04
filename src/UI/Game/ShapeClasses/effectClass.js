@@ -11,7 +11,6 @@ class EffectClass extends React.Component {
         this.state = {
             animation: null,
         };
-        // console.log(this.props);
         this.onEnd = this.onEnd.bind(this);
     }
     componentDidMount() {
@@ -68,7 +67,6 @@ class EffectClass extends React.Component {
     render() {
         const { props } = this.props;
         const Shape = this.props.type;
-        //console.log(this.props, this.state);
         return <Shape ref={this.ref} {...props} />;
     }
 }

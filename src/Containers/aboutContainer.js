@@ -1,8 +1,8 @@
 /**
- * project WizBattle
+ * project wiz-battles
  */
 import { connect } from 'react-redux';
-import Home from '../UI/Home/homePage';
+import About from '../UI/About/about';
 import { dataLoaded } from '../Actions/ActionCreators/appActions';
 
 const HomeContainer = connect(
@@ -12,6 +12,6 @@ const HomeContainer = connect(
             dispatch(dataLoaded(data));
         },
     }),
-)(Home);
+)(About);
 
 export default HomeContainer;

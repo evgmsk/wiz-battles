@@ -31,6 +31,10 @@ const tasksFailed = (state = [], action) => {
 
 const hero = (state = {}, action) => {
     switch (action.type) {
+        case (AT.SAVE_HERO):
+            return {
+                ...action.hero,
+            };
         case (AT.SET_HERO_IMAGE):
             return {
                 ...state,

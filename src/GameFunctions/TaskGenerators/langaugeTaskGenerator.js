@@ -1,7 +1,6 @@
 /**
  * project WizBattle.
  */
-import _ from 'lodash';
 import Vocabulary from '../../Data/vocabulary.json';
 
 const words = Object.keys(Vocabulary);

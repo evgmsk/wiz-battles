@@ -22,8 +22,14 @@ const loginForm = (state = {}, action) => {
     return state;
 };
 
+
 const app = (state = {}, action) => {
     switch (action.type) {
+        case (AT.DATA_LOADED):
+            return {
+                ...state,
+                dataLoaded: action.dataLoaded,
+            };
         case (AT.GO_TO_GAME):
             return {
                 ...state,

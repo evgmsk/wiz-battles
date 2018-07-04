@@ -56,6 +56,7 @@ class DrawBox extends React.Component {
     componentDidMount() {
         window.addEventListener('resize', this.canvasResize);
         this.setInitialSize();
+        this.props.dataLoaded(true);
     }
 
     canvasResize(e) {
@@ -92,7 +93,6 @@ class DrawBox extends React.Component {
             [shape.x, shape.y] = [e.evt.layerX, e.evt.layerY];
         if (target.nodeType === 'Shape')
             [shape.props.x, shape.props.y] = [e.evt.layerX, e.evt.layerY];
-        console.log(e, shapes, shape, [target.attrs.x, target.attrs.y]);
         this.setState({ shapes, selectedShape: shape });
     }
 

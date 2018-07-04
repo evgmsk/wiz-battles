@@ -1,4 +1,4 @@
-/**
+ /**
  * project WizBattle.
  */
 import { connect } from 'react-redux';
@@ -8,6 +8,7 @@ const AppContainer = connect(
     state => ({
         app: state.app,
     }),
+    null,
 )(App);
 
 export default AppContainer;

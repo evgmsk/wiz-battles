@@ -72,7 +72,6 @@ class GroupClass extends React.Component {
 
     moving(x, y) {
         const [X, Y] = [this.ref.current.children[0].attrs.x, this.ref.current.children[0].attrs.y];
-        //if (this.props.tween)
         this.ref.current.to({
             x: (X - x),
             y: (Y - y),
@@ -89,7 +88,6 @@ class GroupClass extends React.Component {
     render() {
         const { layer, stage, animated } = this.props;
         const Shapes = this.props.image;
-        console.log(this.props, this.state);
         return (
             <Group
                 ref={this.ref}

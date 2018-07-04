@@ -48,7 +48,6 @@ const ControlsPanel = (props) => {
         }
         if (id === 'offsetX' || id === 'offsetY') {
             e.target.nextSibling.innerText = `${value}`;
-            console.log(value)
             return onChangeInput({ offset: [id, value] });
         }
         if (id === 'fill-color')

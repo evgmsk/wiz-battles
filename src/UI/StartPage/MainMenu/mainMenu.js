@@ -10,10 +10,10 @@ const menu = Object.values(MainRoutes);
 const MainMenu = () => {
     const hash = window.location.hash.slice(1);
     return (
-        <div className="menu-wrapper">
+        <nav className="menu-wrapper">
             {
                 menu.map((x, i) => {
-                    const className = x.path !== hash ? 'main-menu-item' : 'main-menu-item menu-item-active';
+                    const className = x.path !== (hash || '/') ? 'main-menu-item' : 'main-menu-item menu-item-active';
                     return <MenuItem
                         key={i}
                         href={x.path}
@@ -22,7 +22,7 @@ const MainMenu = () => {
                     />;
                 })
             }
-        </div>
+        </nav>
     );
 };
 

@@ -10,7 +10,7 @@ const findDividers = (num, res = [1], i = 2) => {
             res.push(num);
         return res;
     }
-    if (Number.isNaN(num))
+    if (Number.isNaN(num) || num === Infinity)
         return [NaN, NaN];
     if (!(num % i)) {
         res.push(i);

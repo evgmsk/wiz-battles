@@ -5,9 +5,9 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import DrawBoxContainer from '../../Containers/drawBoxContainer';
 import Home from '../../Containers/homeContainer';
-import About from '../About/about';
+import About from '../../Containers/aboutContainer';
 import GamePageContainer from '../../Containers/gamePageContainer';
-import LogPage from '../../UI/Login/loginPage';
+import LogPage from '../../Containers/logPageContainer';
 import { MainRoutes } from '../../Consts/constants';
 
 const StartPageRoute = () =>

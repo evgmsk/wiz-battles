@@ -10,6 +10,13 @@ export const goToGame = (data) => {
     });
 };
 
+export const dataLoaded = data => {
+    return ({
+        type: AT.DATA_LOADED,
+        dataLoaded: data,
+    });
+};
+
 export const verifyUser = (user) => {
     return {
         type: AT.CHECK_USER,

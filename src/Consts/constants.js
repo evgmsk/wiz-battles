@@ -116,7 +116,7 @@ export const Spells = { ice: 'льда', fire: 'огня', water: 'воды', li
 
 export const Salutation = { effect: salute, animation: Salute };
 
-export const MonstersNames = { headY1: 'ПервыйУлетный', iceMonster: 'ЛупоглазыйМороз'  };
+export const MonstersNames = { headY1: 'ПервыйУлетный', iceMonster: 'ЛупоглазыйМороз' };
 
 export const Effects = {
     ice: { effect: snowStorm, animation: 'iceStorm' },

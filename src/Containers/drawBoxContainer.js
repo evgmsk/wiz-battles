@@ -3,9 +3,8 @@
  */
 import { connect } from 'react-redux';
 import DrawBox from '../UI/DrawBox/drawBox';
-import {
-    onSaveShape,
-} from '../Actions/ActionCreators/gameDataActions';
+import { onSaveShape } from '../Actions/ActionCreators/gameDataActions';
+import { dataLoaded } from '../Actions/ActionCreators/appActions';
 
 const DrawBoxContainer = connect(
     state => ({
@@ -15,20 +14,8 @@ const DrawBoxContainer = connect(
         saveShape(data) {
             dispatch(onSaveShape(data));
         },
-        overwriteShape(data) {
-            dispatch(onOverwriteShape(data));
-        },
-        saveMonster(data) {
-            dispatch(onSaveMonster(data));
-        },
-        savePlayer(data) {
-            dispatch(onSavePlayer(data));
-        },
-        saveSprite(data) {
-            dispatch(onSaveSprite(data));
-        },
-        saveEffect(data) {
-            dispatch(onSaveEffect(data));
+        dataLoaded(data) {
+            dispatch(dataLoaded(data));
         },
     }),
 )(DrawBox);
