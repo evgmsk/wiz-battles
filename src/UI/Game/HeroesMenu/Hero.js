@@ -3,8 +3,8 @@
  */
 import { Layer, Stage } from 'react-konva';
 import React from 'react';
-import { Heroes } from '../../../Consts/constants';
-import SpriteClass from '../ShapeClasses/spriteClass';
+import { Heroes } from '../../../ConstsData/constants';
+import SpriteClass from '../ShapeClasses/SpriteClass';
 import './hero.scss';
 
 class Hero extends React.Component {

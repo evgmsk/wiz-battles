@@ -1,0 +1,19 @@
+@import "../../Scss/constants";
+
+.modal-window {
+  position: absolute;
+  top: -1000px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: animateTop 0.4s;
+  .modal-window-close {
+    width: ;
+    position: relative;
+    top: 50px;
+    right: 50px;
+    background: none;
+    border: none;
+    color: $game-menu-border;
+  }
+}

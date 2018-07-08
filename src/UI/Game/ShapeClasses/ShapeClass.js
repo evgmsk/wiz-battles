@@ -2,11 +2,10 @@
  * project WizBattle
  */
 import React from 'react';
-import { AnimationTypes, TweenTypes } from '../../../Consts/constants';
+import { AnimationTypes, TweenTypes } from '../../../ConstsData/constants';
 
 class ShapeClass extends React.Component {
     constructor(props) {
-        // console.log(props)
         super(props);
         this.state = {
             animation: null,

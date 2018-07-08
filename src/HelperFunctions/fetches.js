@@ -13,7 +13,7 @@ export const fetchForm = (email, password) => {
 };
 
 export const getVocabulary = () => {
-    return fetch('/sessions', { method: 'POST' })
+    return fetch('/vocabulary', { method: 'get' })
         .then(response => {
             return response.json();
         })
@@ -22,7 +22,6 @@ export const getVocabulary = () => {
 };
 
 export const fetchOnClose = (shapes) => {
-    console.log(shapes);
     return fetch('/saveShapes', {
         method: 'POST',
         body: JSON.stringify(shapes),

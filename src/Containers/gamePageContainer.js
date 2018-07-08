@@ -2,7 +2,7 @@
  * project WizBattle
  */
 import { connect } from 'react-redux';
-import GamePage from '../UI/StartPage/gamePage';
+import GamePage from '../UI/StartPage/GamePage';
 import { goToGame } from '../Actions/ActionCreators/appActions';
 
 const GamePageContainer = connect(

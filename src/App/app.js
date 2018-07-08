@@ -2,7 +2,7 @@
  * project mygame
  */
 import React from 'react';
-import StartPage from '../UI/StartPage/startPage';
+import StartPage from '../UI/StartPage/StartPage';
 import GameContainer from '../Containers/gameContainer';
 import './app.scss';
 

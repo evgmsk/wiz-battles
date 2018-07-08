@@ -2,9 +2,9 @@
  * project WizBattle
  */
 import React from 'react';
-import { Heroes } from '../../../Consts/constants';
-import Hero from './hero';
-import Spinner from '../../Spinner/spinnerUI';
+import { Heroes } from '../../../ConstsData/constants';
+import Hero from './Hero';
+import Spinner from '../../OnloadDataSpinner/SpinnerUI';
 import './heroesMenu.scss';
 
 class HeroesHall extends React.Component {

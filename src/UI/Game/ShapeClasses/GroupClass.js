@@ -4,8 +4,8 @@
 import React from 'react';
 import { Group } from 'react-konva';
 import Konva from 'konva';
-import ShapeClass from './shapeClass';
-import { AnimationTypes, TweenTypes } from '../../../Consts/constants';
+import ShapeClass from './ShapeClass';
+import { AnimationTypes, TweenTypes } from '../../../ConstsData/constants';
 
 class GroupClass extends React.Component {
     constructor(props) {
@@ -49,8 +49,6 @@ class GroupClass extends React.Component {
     createTween(tweenType) {
         if (tweenType)
             return TweenTypes[tweenType](this.ref.current);
-        // setTimeout(() => { tween.play(); }, 500);
-        // setTimeout(() => { this.ref.current.destroy(); }, 1500);
         return null;
     }
     createAnimations() {

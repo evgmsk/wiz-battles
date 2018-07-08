@@ -11,7 +11,7 @@ import Stop2 from 'react-icons/lib/fa/lock';
 import Grab2 from 'react-icons/lib/fa/unlock';
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-up';
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-down';
-import { AnimationTypes, ShapeTypes, TweenTypes } from '../../Consts/constants';
+import { AnimationTypes, ShapeTypes, TweenTypes } from '../../ConstsData/constants';
 
 const ControlsPanel = (props) => {
     const onChangeInput = props.onChange || (f => f);

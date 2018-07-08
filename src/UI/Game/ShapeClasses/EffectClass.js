@@ -2,7 +2,8 @@
  * project WizBattle.
  */
 import React from 'react';
-import { SpellAnimations, TweenTypes, Salutation } from '../../../Consts/constants';
+import { SpellAnimations, TweenTypes, Salutation } from '../../../ConstsData/constants';
+import { pause } from '../../../HelperFunctions/pause';
 
 class EffectClass extends React.Component {
     constructor(props) {
@@ -34,23 +35,23 @@ class EffectClass extends React.Component {
                 ? Math.round(Math.random() * 2000)
                 : Math.round(Math.random() * 300);
             const duration = animationType !== 'Salute' ? 0.5 : 0.2;
-            setTimeout(() => {
+            pause(timeOut).then(() => {
                 animation.start();
                 this.ref.current.to({
                     opacity: 1,
                     duration,
                 }, 1);
-            }, timeOut);
+            });
         }
         if (tweenType) {
             const tween = this.createTween(tweenType);
             const timeOut = Math.round(Math.random() * 3000);
-            setTimeout(() => {
+            pause(timeOut).then(() => {
                 if (typeof tween === 'function')
                     tween();
                 else tween.play();
                 this.ref.current.setAttr('opacity', 1);
-            }, timeOut);
+            });
         }
     }
     createAnimation(layer, animationType) {

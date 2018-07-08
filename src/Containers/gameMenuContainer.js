@@ -2,7 +2,7 @@
  * project WizBattle.
  */
 import { connect } from 'react-redux';
-import GameMenu from '../UI/Game/GameMenu/gameMenu';
+import GameMenu from '../UI/Game/GameMenu/GameMenu';
 import { setMusicVolume, setSoundsVolume } from '../Actions/ActionCreators/gameActions';
 
 const GameMenuContainer = connect(

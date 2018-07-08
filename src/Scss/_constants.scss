@@ -60,3 +60,8 @@ $progress-bar-height: 20px;
     height: 100%;
   }
 }
+
+@keyframes animateTop {
+  from {top: -1000px; opacity: 0}
+  to {top: 0; opacity: 1}
+}

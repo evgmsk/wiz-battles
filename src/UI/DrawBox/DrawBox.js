@@ -4,12 +4,12 @@
 import React from 'react';
 import { Stage, Layer } from 'react-konva';
 import _ from 'lodash';
-import ControlsPanel from './controlsPanel';
-import ShapeClass from '../Game/ShapeClasses/shapeClass';
-import { oddIndexes, evenIndexes } from '../../HelperFunctions/indexFiters';
+import ControlsPanel from './ControlsPanel';
+import ShapeClass from '../Game/ShapeClasses/ShapeClass';
+import { oddIndexes, evenIndexes } from '../../HelperFunctions/indexFilters';
 import idGen from '../../HelperFunctions/idGen';
-import { Shapes } from '../../Consts/constants';
-import GroupClass from '../Game/ShapeClasses/groupClass';
+import { Shapes } from '../../ConstsData/constants';
+import GroupClass from '../Game/ShapeClasses/GroupClass';
 import './drawBox.scss';
 
 class DrawBox extends React.Component {

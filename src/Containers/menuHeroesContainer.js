@@ -2,7 +2,7 @@
  * project WizBattle
  */
 import { connect } from 'react-redux';
-import HeroesHall from '../UI/Game/HeroesMenu/heroesMenu';
+import HeroesHall from '../UI/Game/HeroesMenu/HeroesMenu';
 import {
     setTimeLimit,
     setDifficulty,

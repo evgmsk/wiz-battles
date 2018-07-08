@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { Stage, Layer } from 'react-konva';
-import DrawLayer from '../Game/ShapeClasses/shapeClass';
+import DrawLayer from '../Game/ShapeClasses/ShapeClass';
 
 const DrawStageWrapper = props => {
     // console.log(props)

@@ -2,7 +2,7 @@
  * project WizBattle
  */
 import React from 'react';
-import { MainRoutes } from '../../../Consts/constants';
+import { MainRoutes } from '../../../ConstsData/constants';
 import MenuItem from './menuItem';
 import './mainMenu.scss';
 

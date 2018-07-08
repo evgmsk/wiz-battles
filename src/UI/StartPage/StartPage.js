@@ -3,9 +3,9 @@
  */
 import React from 'react';
 import { HashRouter } from 'react-router-dom';
-import ContentRoute from './contentRoute';
-import Header from './header';
-import Spinner from '../Spinner/spinnerUI';
+import ContentRoute from './ContentRoute';
+import Header from './Header';
+import Spinner from '../OnloadDataSpinner/SpinnerUI';
 import './startPage.scss';
 
 const StartPage = props => {

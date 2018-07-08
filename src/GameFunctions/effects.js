@@ -2,7 +2,7 @@
  * project WizBattle.
  */
 import Konva from 'konva';
-import { IceColors } from '../Consts/constants';
+import { IceColors } from '../ConstsData/constants';
 
 export const snowFlake = (x, y) => {
     const type = 'Star';

@@ -4,7 +4,7 @@
 import React from 'react';
 import { EmailValidation, PasswordValidation } from '../../HelperFunctions/inputValidation';
 import initialState from '../../Store/initialState';
-import Submit from '../Common/submit';
+import Submit from '../Common/Submit';
 import './logForm.scss';
 
 const LogForm = props => {

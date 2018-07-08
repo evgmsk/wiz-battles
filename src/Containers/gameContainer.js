@@ -2,7 +2,7 @@
  * project WizBattle.
  */
 import { connect } from 'react-redux';
-import Game from '../UI/Game/game';
+import Game from '../UI/Game/Game';
 import {
     setScene,
     toStartBattle,

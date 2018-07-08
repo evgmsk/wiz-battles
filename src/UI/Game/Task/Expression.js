@@ -4,7 +4,7 @@
 import React from 'react';
 import Speaker from 'react-icons/lib/ti/volume';
 import onSound from '../../../HelperFunctions/speaker';
-import { Langs } from '../../../Consts/constants';
+import { Langs } from '../../../ConstsData/constants';
 
 class Expression extends React.Component {
     constructor(props) {

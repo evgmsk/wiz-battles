@@ -2,7 +2,7 @@
  * project WizBattle.
  */
 import { connect } from 'react-redux';
-import Battle from '../UI/Game/Battle/battle';
+import Battle from '../UI/Game/Battle/Battle';
 import {
     setTask,
     setOpponentHealth,

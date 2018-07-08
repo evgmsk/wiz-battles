@@ -7,7 +7,7 @@ import './loginPage.scss';
 
 class LogPage extends React.Component {
     componentDidMount() {
-        setTimeout(() => this.props.dataLoaded(true), 100);
+        this.props.dataLoaded(true);
     }
     render() {
         return (

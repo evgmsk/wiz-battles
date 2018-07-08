@@ -6,16 +6,17 @@ import { Layer, Stage, Image } from 'react-konva';
 import _ from 'lodash';
 import BGBattle from '../../../images/scenes/battle_scene_0.jpg';
 import { resolveAttack, levelsGap, setOpponentImage } from '../../../GameFunctions/battleFunctions';
-import PlayerBar from './PlayerBar/playerBar';
-import Sprite from '../ShapeClasses/spriteClass';
-import EffectClass from '../ShapeClasses/effectClass';
-import Task from '../Task/task';
-import { TaskGenerators, Heroes, Effects, Salutation } from '../../../Consts/constants';
+import PlayerBar from './PlayerBar/PlayerBar';
+import Sprite from '../ShapeClasses/SpriteClass';
+import EffectClass from '../ShapeClasses/EffectClass';
+import Task from '../Task/Task';
+import { TaskGenerators, Heroes, Effects, Salutation } from '../../../ConstsData/constants';
 import SpellSelector from './SpellMenu/selectSpell';
-import Spinner from '../../Spinner/spinnerUI';
-import ShapeClass from '../ShapeClasses/shapeClass';
+import Spinner from '../../OnloadDataSpinner/SpinnerUI';
+import ShapeClass from '../ShapeClasses/ShapeClass';
 import BattleMusic from '../../../sounds/didier_julia-melodiya-iz-mul-tfil-ma-priklyucheniya-papirusa.mp3';
 import onMusicEnd from '../../../HelperFunctions/onMusicEnd';
+import { pause, waiter } from '../../../HelperFunctions/pause';
 import './battle.scss';
 
 const TGA = Object.values(TaskGenerators);
@@ -71,7 +72,7 @@ class Battle extends React.Component {
             if (playerMove)
                 this.resolvePlayerMove();
             else
-                setTimeout(this.resolveOpponentMove, 2000);
+                pause(2000).then(this.resolveOpponentMove);
         }
     }
     componentWillUnmount() {
@@ -112,9 +113,7 @@ class Battle extends React.Component {
         this.Music.play();
     }
     resolvePlayerMove() {
-        setTimeout(() => {
-            this.setState({ showSpellMenu: true });
-        }, 1000);
+        pause(1000).then(this.setState({ showSpellMenu: true }));
     }
     onAnimationEnd(e, barName) {
         e.stopPropagation();
@@ -246,18 +245,18 @@ class Battle extends React.Component {
             this.heroAttack(battle);
         } else if (battle.task) {
             setTaskFailed(battle.task);
-            setTimeout(() => setPlayerMove(false), 2000);
+            pause(2000).then(() => setPlayerMove(false));
         }
         if (battle.task)
             setTask(null);
     }
     heroAttack(battle, time = 1200) {
        this.setState({ heroAnimation: 'attack' });
-        setTimeout(() => {
+        waiter(time, () => {
             this.setState({ heroAnimation: 'idle' });
             const { effect } = Effects[battle.player.spell];
             this.startEffect(effect);
-            }, time);
+            });
     }
     startEffect(effect, num = 50) {
         const { spellShapes } = this.state;

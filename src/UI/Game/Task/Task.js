@@ -2,8 +2,10 @@
  * project WizBattle
  */
 import React from 'react';
-import Description from './description';
-import Expression from './expression';
+import Description from './Description';
+import Expression from './Expression';
+import { pause } from '../../../HelperFunctions/pause';
+// import Submit from '../../Common/Submit';
 import './task.scss';
 
 class Task extends React.Component {
@@ -25,9 +27,10 @@ class Task extends React.Component {
         this.onPressButton = this.onPressButton.bind(this);
         this.onClick = this.onClick.bind(this);
         this.onAnswer = this.onAnswer.bind(this);
+        this.showTask = this.showTask.bind(this);
     }
     componentDidMount() {
-        setTimeout(() => this.showTask(), 100);
+        pause(100).then(this.showTask);
     }
     showTask() {
         this.setState({ taskClass: 'task-section active' });
@@ -62,7 +65,7 @@ class Task extends React.Component {
                 solutionPopUpClass: 'solution-effect correct',
                 buttonValue: 'Произнести заклинание',
             });
-            setTimeout(() => this.props.onResolveTask(damage), 3000);
+            pause(3000).then(() => this.props.onResolveTask(damage));
         } else if (!solution) {
             this.setState({
                 correctSolution: false,
@@ -70,7 +73,7 @@ class Task extends React.Component {
                 solutionPopUpClass: 'solution-effect fail',
                 buttonValue: 'Посмотреть ответ',
             });
-            setTimeout(() => this.setState({ solutionPopUpClass: 'solution-effect' }), 1200);
+            pause(1200).then(() => this.setState({ solutionPopUpClass: 'solution-effect' }));
         }
     }
     onAnswer(answer) {
@@ -83,7 +86,7 @@ class Task extends React.Component {
             if (buttonValue === 'Посмотреть ответ')
                 this.setState({ buttonValue: 'Вернуться в битву', showAnswer: true });
             else {
-                setTimeout(() => this.props.onResolveTask(0), 1000);
+                pause(1000).then(() => this.props.onResolveTask(0));
             }
         }
     }
@@ -146,7 +149,12 @@ class Task extends React.Component {
                                 placeholder="Ваш ответ"
                                 onKeyDown={this.onPressButton}
                             />
-                            <input type="button" onClick={this.onClick} value={buttonValue} onKeyDown={this.onPressButton} />
+                            <input
+                                type="button"
+                                onClick={this.onClick}
+                                value={buttonValue}
+                                onKeyDown={this.onPressButton}
+                            />
                         </form>
                     </div>
                 </div>

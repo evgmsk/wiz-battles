@@ -6,7 +6,7 @@ import Life from 'react-icons/lib/ti/leaf';
 import Fire from 'react-icons/lib/fa/fire';
 import Ice from 'react-icons/lib/ti/weather-snow';
 import Water from 'react-icons/lib/ti/weather-shower';
-import { Spells } from '../../../../Consts/constants';
+import { Spells } from '../../../../ConstsData/constants';
 import onSound from '../../../../HelperFunctions/speaker';
 import './selectSpell.scss';
 

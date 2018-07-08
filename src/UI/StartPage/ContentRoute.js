@@ -8,7 +8,7 @@ import Home from '../../Containers/homeContainer';
 import About from '../../Containers/aboutContainer';
 import GamePageContainer from '../../Containers/gamePageContainer';
 import LogPage from '../../Containers/logPageContainer';
-import { MainRoutes } from '../../Consts/constants';
+import { MainRoutes } from '../../ConstsData/constants';
 
 const StartPageRoute = () =>
         <Switch>

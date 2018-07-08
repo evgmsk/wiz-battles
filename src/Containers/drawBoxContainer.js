@@ -2,7 +2,7 @@
  * project WizBattle
  */
 import { connect } from 'react-redux';
-import DrawBox from '../UI/DrawBox/drawBox';
+import DrawBox from '../UI/DrawBox/DrawBox';
 import { onSaveShape } from '../Actions/ActionCreators/gameDataActions';
 import { dataLoaded } from '../Actions/ActionCreators/appActions';
 

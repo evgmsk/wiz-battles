@@ -4,11 +4,13 @@
 import React from 'react';
 import Git from 'react-icons/lib/fa/github-square';
 import HeadImage from '../../images/title.png';
+import { pause } from '../../HelperFunctions/pause';
+import { TimeOuts } from '../../ConstsData/constants';
 import './homePage.scss';
 
 class HomePage extends React.Component {
     componentDidMount() {
-        setTimeout(() => this.props.dataLoaded(true), 100);
+        pause(TimeOuts).then(() => this.props.dataLoaded(true));
     }
     render() {
         return (

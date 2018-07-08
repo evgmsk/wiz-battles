@@ -125,6 +125,10 @@ export const Effects = {
     life: { effect: leafRising, animation: 'lifeAttack' },
 };
 
+export const Timeouts = {
+    heroAttack: 1200, onResolveTask: 2000, onFailTask: 1000, onDataLoad: 100,
+};
+
 export const IceColors = ['#eaf9fe', '#eff9fe', '#eaf9ff', '#eaf9f9', '#e8f9fe', '#eaf9fe', '#eaf3fe'];
 
 export const Langs = { ru: 'ru-RU', en: 'en-US' };

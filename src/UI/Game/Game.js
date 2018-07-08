@@ -12,8 +12,8 @@ import {
 } from '../../GameFunctions/battleFunctions';
 import BattleContainer from '../../Containers/battleContainer';
 import HeroesHallContainer from '../../Containers/menuHeroesContainer';
-import Spinner from '../Spinner/spinnerUI';
-import HeroAchievements from './HeroAchievements/achievemants';
+import Spinner from '../OnloadDataSpinner/SpinnerUI';
+import HeroAchievements from './HeroAchievements/Achievements';
 import GameMenu from '../../Containers/gameMenuContainer';
 import onMusicEnd from '../../HelperFunctions/onMusicEnd';
 import './game.scss';
@@ -25,7 +25,7 @@ class Game extends React.Component {
         this.layer = React.createRef();
         this.container = React.createRef();
         this.hero = React.createRef();
-        this.sh = React.createRef();
+        this.opponent = React.createRef();
         const [width, height] = [window.innerWidth * 0.8, window.innerHeight * 0.6];
         const [initialWidth, initialHeight] = [...[width, height]];
         this.state = {
