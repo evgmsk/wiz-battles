@@ -4,24 +4,17 @@
 import React from 'react';
 import './modalWindow.scss';
 
-class ModalWindow extends React.Component {
+const ModalWindow = props => {
     /**
      * This component designed to wrap modal content and used to show HeroAchievements and HeroMenu
      */
-    closeWindow() {
-        this.props.onClick();
-    }
-    render() {
-       const { ModalContent } = this.props;
-       return (
-           <div className="modal-window">
-               <div className="modal-window-header">
-                   <button className="modal-window-close" onClick={this.closeWindow}>&times;</button>
-               </div>
-               <ModalContent />
-           </div>
-       );
-    }
-}
+   const { ModalContent, ModalContentProps } = props;
+   return (
+       <div className="modal-window">
+           <button className="modal-window-close" onClick={props.onClick}>&times;</button>
+           <ModalContent {...ModalContentProps} />
+       </div>
+   );
+};
 
 export default ModalWindow;

@@ -5,12 +5,12 @@ import React from 'react';
 import Git from 'react-icons/lib/fa/github-square';
 import HeadImage from '../../images/title.png';
 import { pause } from '../../HelperFunctions/pause';
-import { TimeOuts } from '../../ConstsData/constants';
+import { Timeouts } from '../../ConstsData/constants';
 import './homePage.scss';
 
 class HomePage extends React.Component {
     componentDidMount() {
-        pause(TimeOuts).then(() => this.props.dataLoaded(true));
+        pause(Timeouts.onDataLoaded).then(() => this.props.dataLoaded(true));
     }
     render() {
         return (

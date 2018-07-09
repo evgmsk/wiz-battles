@@ -16,6 +16,7 @@ import Spinner from '../OnloadDataSpinner/SpinnerUI';
 import HeroAchievements from './HeroAchievements/Achievements';
 import GameMenu from '../../Containers/gameMenuContainer';
 import onMusicEnd from '../../HelperFunctions/onMusicEnd';
+import ModalWindow from '../ModalWindow/ModalWindow';
 import './game.scss';
 
 class Game extends React.Component {
@@ -140,14 +141,13 @@ class Game extends React.Component {
     defineComponentToRender() {
         const { stageProps, image, showHeroData, showSpinner } = this.state;
         const { game, hero, resetHero } = this.props;
+        const ModalContentProps = { ...hero, onClick: e => this.showStats(e, false) };
         if (game.startBattle) {
             return <BattleContainer />;
         }
         if (game.resetHero) {
             return <HeroesHallContainer hero={hero} resetHero={resetHero} />;
         }
-        if (showHeroData)
-            return <HeroAchievements {...hero} onClick={e => this.showStats(e, false)} />;
         return (
             <div className="game-screen" >
                 <Stage {...stageProps} ref={this.stage}>
@@ -155,8 +155,15 @@ class Game extends React.Component {
                         <Image image={image} width={stageProps.width} height={stageProps.height} alt="" />
                     </Layer>
                 </Stage>
-                { showSpinner ? <Spinner /> : <div className="display-none" />}
-                <GameMenu showStats={this.showStats} startBattle={this.startBattle} />
+                { showSpinner ? <Spinner /> : <span className="display-none" />}
+                { showHeroData
+                    ? <ModalWindow
+                        ModalContent={HeroAchievements}
+                        ModalContentProps={ModalContentProps}
+                        onClick={e => this.showStats(e, false)}
+                    />
+                    : <GameMenu showStats={this.showStats} startBattle={this.startBattle} />
+                } ;
             </div>
         );
     }

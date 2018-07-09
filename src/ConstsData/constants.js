@@ -126,7 +126,7 @@ export const Effects = {
 };
 
 export const Timeouts = {
-    heroAttack: 1200, onResolveTask: 2000, onFailTask: 1000, onDataLoad: 100,
+    heroAttack: 1200, onResolveTask: 2000, onFailTask: 1000, onDataLoaded: 100,
 };
 
 export const IceColors = ['#eaf9fe', '#eff9fe', '#eaf9ff', '#eaf9f9', '#e8f9fe', '#eaf9fe', '#eaf3fe'];

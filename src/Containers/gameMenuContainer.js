@@ -3,7 +3,7 @@
  */
 import { connect } from 'react-redux';
 import GameMenu from '../UI/Game/GameMenu/GameMenu';
-import { setMusicVolume, setSoundsVolume } from '../Actions/ActionCreators/gameActions';
+import { setMusicVolume, setSoundsVolume, resetGameHero } from '../Actions/ActionCreators/gameActions';
 
 const GameMenuContainer = connect(
     state => ({
@@ -16,6 +16,9 @@ const GameMenuContainer = connect(
         },
         setSoundsVolume(volume) {
             dispatch(setSoundsVolume(volume));
+        },
+        resetGameHero(hero) {
+            dispatch(resetGameHero(hero));
         },
     }),
 )(GameMenu);

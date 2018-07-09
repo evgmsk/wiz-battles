@@ -6,12 +6,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: $life;
-  opacity: 0.8;
   padding: 10rem;
   color: $ice;
   font: $font-main;
   h2 {
-    font-size: 4rem;
+    text-align: center;
+    font-size: 3rem;
   }
   .hero-stats-table {
     position: relative;
@@ -38,7 +38,7 @@
     color: $ice;
     cursor: pointer;
     &:hover,
-    &focus {
+    &:focus {
       color: #DB6400;
       background: $ice;
     }

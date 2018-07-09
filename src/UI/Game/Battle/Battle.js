@@ -10,7 +10,7 @@ import PlayerBar from './PlayerBar/PlayerBar';
 import Sprite from '../ShapeClasses/SpriteClass';
 import EffectClass from '../ShapeClasses/EffectClass';
 import Task from '../Task/Task';
-import { TaskGenerators, Heroes, Effects, Salutation } from '../../../ConstsData/constants';
+import { TaskGenerators, Heroes, Effects, Salutation, Timeouts } from '../../../ConstsData/constants';
 import SpellSelector from './SpellMenu/selectSpell';
 import Spinner from '../../OnloadDataSpinner/SpinnerUI';
 import ShapeClass from '../ShapeClasses/ShapeClass';
@@ -72,7 +72,7 @@ class Battle extends React.Component {
             if (playerMove)
                 this.resolvePlayerMove();
             else
-                pause(2000).then(this.resolveOpponentMove);
+                pause(Timeouts.onResolveTask).then(this.resolveOpponentMove);
         }
     }
     componentWillUnmount() {
@@ -113,7 +113,7 @@ class Battle extends React.Component {
         this.Music.play();
     }
     resolvePlayerMove() {
-        pause(1000).then(this.setState({ showSpellMenu: true }));
+        pause(Timeouts.heroAttack).then(this.setState({ showSpellMenu: true }));
     }
     onAnimationEnd(e, barName) {
         e.stopPropagation();
@@ -149,23 +149,15 @@ class Battle extends React.Component {
         const { initial } = this.state;
         const gap = levelsGap(battle.player.level);
         const result = this.attackResult;
-        if (barName === 'right' && battle.player.health < initial.player.health) {
-            let health = battle.player.health + result.restoration;
-            if (initial.opponent.health <= health)
-                health = initial.player.health;
-            setPlayerHealth(health);
-        } else if (barName === 'right' && battle.player.health === initial.player.health) {
-            if (result.levelUp)
-                setPlayerExperience(levelsGap(battle.player.level));
-            else
-                setPlayerExperience(result.experience);
-        } else if (barName === 'left' && healthBar) {
+        const targetExp = Math.round((result.experience / gap) * 100);
+        if (barName === 'right')
+            this.resolveLifeAttackAnimationRightBar();
+        else if (barName === 'left' && healthBar) {
             if (result.levelUp)
                 setPlayerExperience(gap);
             else
                 setPlayerExperience(result.experience);
         } else if (barName === 'left' && expBar) {
-            const targetExp = Math.round((result.experience / gap) * 100);
             if ((result.levelUp && parseInt(target.getAttribute('value'), 10) === targetExp)
                 || !result.levelUp) {
                 if (result.health > 0)
@@ -179,6 +171,17 @@ class Battle extends React.Component {
             } else if (result.levelUp && target.getAttribute('value') === '0') {
                 setPlayerExperience(result.experience);
             }
+        }
+    }
+    resolveLifeAttackAnimationRightBar() {
+        const { setPlayerHealth, battle } = this.props;
+        const { initial } = this.state;
+        const result = this.attackResult;
+        if (battle.player.health < initial.player.health) {
+            let health = battle.player.health + result.restoration;
+            if (initial.opponent.health <= health)
+                health = initial.player.health;
+            setPlayerHealth(health);
         }
     }
     onPlayerMoveHealthBarAnimation(target, barName) {
@@ -245,12 +248,12 @@ class Battle extends React.Component {
             this.heroAttack(battle);
         } else if (battle.task) {
             setTaskFailed(battle.task);
-            pause(2000).then(() => setPlayerMove(false));
+            pause(Timeouts.onResolveTask).then(() => setPlayerMove(false));
         }
         if (battle.task)
             setTask(null);
     }
-    heroAttack(battle, time = 1200) {
+    heroAttack(battle, time = Timeouts.heroAttack) {
        this.setState({ heroAnimation: 'attack' });
         waiter(time, () => {
             this.setState({ heroAnimation: 'idle' });

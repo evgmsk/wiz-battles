@@ -11,8 +11,6 @@ import {
     setOpponent,
     setPlayer,
     setPlayerMove,
-    setMusicVolume,
-    setSoundsVolume,
     resetGameHero,
 } from '../Actions/ActionCreators/gameActions';
 import { goToGame } from '../Actions/ActionCreators/appActions';
@@ -22,12 +20,6 @@ const GameContainer = connect(
         ...state,
     }),
     dispatch => ({
-        setMusicVolume(volume) {
-            dispatch(setMusicVolume(volume));
-        },
-        setSoundsVolume(volume) {
-            dispatch(setSoundsVolume(volume));
-        },
         resetHero(hero) {
             dispatch(resetGameHero(hero));
         },

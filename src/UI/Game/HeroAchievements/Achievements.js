@@ -10,7 +10,7 @@ const Achievements = props => {
     const dataName = ['Уровень', 'Выиграно битв', 'Проиграно битв', 'Решено задач', 'Провалено задач'];
     return (
             <div className="hero-stats-wrapper">
-                <h2>{props.nickName}</h2>
+                <h2>Герой: {props.nickName}</h2>
                 <div className="hero-stats-table">
                     {dataName.map((x, i) => {
                         return (

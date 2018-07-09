@@ -5,7 +5,7 @@
   height: 100%;
   @include flex(space-around, center, column);
   h2 {
-    font: 4rem/1 'Rubik', 'sans-serif';
+    font: 4rem/1 'Rubik', Helvetica, 'sans-serif';
     color: $game-menu-border;
     text-align: center;
   }
@@ -37,7 +37,7 @@
       color: #ffffff;
       width: 162px;
       height: 3.4rem;
-      font: 2.2rem/1 'Rubik', 'sans-serif';
+      font: 2.2rem/1 'Rubik', Helvetica, 'sans-serif';
       border: solid 2px $game-menu-border;
       border-radius: 3rem;
       cursor: pointer;
