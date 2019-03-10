@@ -2,7 +2,7 @@
  * project WizBattle
  */
 import React from 'react';
-import Speaker from 'react-icons/lib/ti/volume';
+import { TiVolumeUp } from 'react-icons/ti';
 import onSound from '../../../HelperFunctions/speaker';
 import { Langs } from '../../../ConstsData/constants';
 

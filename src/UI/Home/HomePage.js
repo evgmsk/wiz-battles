@@ -2,7 +2,7 @@
  * project WizBattle.
  */
 import React from 'react';
-import Git from 'react-icons/lib/fa/github-square';
+import {FaGithubSquare as Git} from 'react-icons/fa';
 import HeadImage from '../../images/title.png';
 import { pause } from '../../HelperFunctions/pause';
 import { Timeouts } from '../../ConstsData/constants';

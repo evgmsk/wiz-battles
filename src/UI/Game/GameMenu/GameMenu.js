@@ -2,8 +2,8 @@
  * project WizBattle.
  */
 import React from 'react';
-import Music from 'react-icons/lib/fa/music';
-import Sounds from 'react-icons/lib/ti/volume';
+import { FaMusic as Music } from 'react-icons/fa';
+import { TiVolume as Sounds } from 'react-icons/ti';
 import './gameMenu.scss';
 
 class GameMenu extends React.Component {

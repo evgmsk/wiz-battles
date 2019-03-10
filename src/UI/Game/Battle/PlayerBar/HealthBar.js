@@ -2,7 +2,7 @@
  * project WizBattle
  */
 import React from 'react';
-import Heart from 'react-icons/lib/fa/heart';
+import {FaHeart as Heart} from 'react-icons/fa';
 
 const HealthBar = props => {
     // console.log(props);

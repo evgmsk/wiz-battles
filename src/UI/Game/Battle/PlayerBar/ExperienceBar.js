@@ -2,7 +2,7 @@
  * project WizBattle
  */
 import React from 'react';
-import Star from 'react-icons/lib/fa/star';
+import { TiStar as Star } from 'react-icons/ti';
 
 const ExperienceBar = props => {
     const experienceClass = `experience-bar experience-${props.experience}`;

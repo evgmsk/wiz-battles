@@ -2,15 +2,25 @@
  * project smartWizBattle
  */
 import React from 'react';
-import Play from 'react-icons/lib/fa/play-circle-o';
-import Stop from 'react-icons/lib/fa/stop-circle-o';
-import Trash from 'react-icons/lib/fa/trash';
-import Grab from 'react-icons/lib/fa/hand-grab-o';
-import Draw from 'react-icons/lib/fa/edit';
-import Stop2 from 'react-icons/lib/fa/lock';
-import Grab2 from 'react-icons/lib/fa/unlock';
-import ArrowUp from 'react-icons/lib/fa/arrow-circle-up';
-import ArrowDown from 'react-icons/lib/fa/arrow-circle-down';
+import {
+    FaPlayCircle as Play,
+    FaStopCircle as Stop,
+    FaTrash as Trash,
+    FaHandHolding as Grab,
+    FaEdit as Draw,
+    FaLock as Stop2,
+    FaUnlock as Grab2,
+    FaArrowUp as ArrowUp,
+    FaArrowDown as ArrowDown
+} from 'react-icons/fa/';
+//import Stop from 'react-icons/lib/fa/stop-circle-o';
+// import Trash from 'react-icons/lib/fa/trash';
+// import Grab from 'react-icons/lib/fa/hand-grab-o';
+// import Draw from 'react-icons/lib/fa/edit';
+// import Stop2 from 'react-icons/lib/fa/lock';
+// import Grab2 from 'react-icons/lib/fa/unlock';
+// import ArrowUp from 'react-icons/lib/fa/arrow-circle-up';
+// import ArrowDown from 'react-icons/lib/fa/arrow-circle-down';
 import { AnimationTypes, ShapeTypes, TweenTypes } from '../../ConstsData/constants';
 
 const ControlsPanel = (props) => {

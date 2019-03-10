@@ -2,10 +2,10 @@
  * project WizBattle
  */
 import React from 'react';
-import Life from 'react-icons/lib/ti/leaf';
-import Fire from 'react-icons/lib/fa/fire';
-import Ice from 'react-icons/lib/ti/weather-snow';
-import Water from 'react-icons/lib/ti/weather-shower';
+import {TiLeaf as Life, TiWeatherSnow as Ice, TiWeatherShower as Water } from 'react-icons/ti';
+import {FaFire as Fire} from 'react-icons/fa';
+// import Ice from 'react-icons/lib/ti/weather-snow';
+// import Water from 'react-icons/lib/ti/weather-shower';
 import { Spells } from '../../../ConstsData/constants';
 import onSound from '../../../HelperFunctions/speaker';
 import './spellsMenu.scss';
